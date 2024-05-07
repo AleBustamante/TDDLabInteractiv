@@ -2,7 +2,7 @@
   "name": "parcel-jest-base",
   "version": "1.0.0",
   "description": "",
-  "default": "index.html",
+  "default": "./html/index.html",
   "scripts": {
     "start": "parcel ./html/index.html ./html/proyectos.html ./html/Metricas.html ./html/verMetricas.html",
     "build": "parcel build ./html/index.html ./html/proyectos.html ./html/Metricas.html ./html/verMetricas.html",
@@ -15,10 +15,14 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.21.3",
-    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-env": "^7.24.5",
     "babel-jest": "^29.5.0",
     "cypress": "^12.8.1",
-    "jest": "^29.5.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "parcel": "^2.8.3"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }

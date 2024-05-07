@@ -1,7 +1,19 @@
-import {crearProyecto,agregarProyectoAProyectos,mostrarProyectos,eliminarProyecto} from "./moduloIndex.js"
+import {datosFormulariosSonValidos,crearProyecto,agregarProyectoAProyectos,mostrarProyectos,eliminarProyecto} from "./moduloIndex.js"
 import Proyecto from "../Proyecto.js";
 
 describe("crearProyecto", () => {
+  it("Deberia retornar false si no se lleno ningun campo", () => {
+    expect(datosFormulariosSonValidos("","")).toEqual(false);
+  });
+  it("Deberia retornar false si no se lleno el campo de titulo", () => {
+    expect(datosFormulariosSonValidos("","descripcion1")).toEqual(false);
+  });
+  it("Deberia retornar false si no se lleno el campo de descripcion", () => {
+    expect(datosFormulariosSonValidos("titulo1","")).toEqual(false);
+  });
+  it("Deberia retornar true si se llenaron todos los campos", () => {
+    expect(datosFormulariosSonValidos("titulo","descripcion")).toEqual(true);
+  });
   it("Si se quiere crear un proyecto sin titulo deberia obtener un null en crear proyecto", () => {
     expect(crearProyecto(null,"descrip")).toEqual(null)
   });

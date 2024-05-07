@@ -110,7 +110,6 @@ function obtenerDescripcionTotal(puntajeTotal) {
   }
 }
 
-
   function agregarMetricaAProyecto(metrica, proyecto) {
     if (!proyecto || !Array.isArray(proyecto.metricas)) {
         return "No se puede agregar una métrica a un proyecto no existente";

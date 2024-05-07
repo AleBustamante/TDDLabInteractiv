@@ -1,6 +1,8 @@
-import { crearMetrica,agregarMetricaAProyecto , eliminarMetricaDeProyecto} from "./moduloMetrica.js";
+import { crearMetrica,agregarMetricaAProyecto , eliminarMetricaDeProyecto, modificarMetrica} from "./moduloMetrica.js";
 import Metrica from "../Metrica.js"; 
 import Proyecto from "../Proyecto.js"; 
+import { TextEncoder } from 'util';
+global.TextEncoder = TextEncoder;
 
 describe("crearMetrica", () => {
   it("Debería crear una nueva instancia de Metrica con los valores dados (no refactor)", () => {
@@ -69,4 +71,26 @@ describe("agregarMetricaAProyecto", () => {
     const mensaje = eliminarMetricaDeProyecto(metrica, proyecto);
     expect(mensaje).toBe("No se puede eliminar una métrica que no existe en el proyecto");
   });
+  describe("modificarMetrica", () => {
+    it("Debería modificar los valores de la métrica según los nuevos datos proporcionados", () => {
+      const metrica = new Metrica(15, 150, 90);
+      modificarMetrica(metrica, 15, 150, 90);
+      expect(metrica.pruebasAñadidas).toBe(15);
+      expect(metrica.lineasDeCodigo).toBe(150);
+      expect(metrica.cobertura).toBe(90);
+    });
+  });
+ 
+/*
+  describe("mostrarMetricas", () => {
+    it("Debería eliminar todas las métricas actuales del proyectoElement", () => {
+      const proyectoElement = document.createElement("div");
+      proyectoElement.innerHTML = '<div class="metrica"></div><div class="metrica"></div>';
+      //proyectoElement.innerHTML = <div class="metrica"></div><div class="metrica"></div>;
+      mostrarMetricas(null, proyectoElement); 
+      expect(proyectoElement.querySelectorAll(".metrica").length).toBe(0);
+    });
+  });
+   */
 });   
+

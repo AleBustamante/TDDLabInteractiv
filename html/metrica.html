@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DATOS DE LA MÉTRICA</title>
+</head>
+<body>
+  <h1>DATOS DE LA MÉTRICA</h1>
+  <form id="metrica-form">
+    <label for="pruebas-anadidas">Pruebas Añadidas:</label>
+    <input type="number" id="pruebas-anadidas" />
+    <label for="lineas-codigo">Líneas de Código:</label>
+    <input type="number" id="lineas-codigo" />
+    <label for="cobertura">Cobertura (%):</label>
+    <input type="number" id="cobertura" step="0.01" />
+    <input type="submit" value="Enviar" id="enviar-button" />
+  </form>
+  <div id="resultado-div"></div>
+  <button id="boton-regresar">Regresar</button>
+  <script type="module" src="../src/proyectos/presentermetrica.js"></script>
+</body>
+</html>

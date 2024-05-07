@@ -1,5 +1,18 @@
 import Proyecto from "../Proyecto.js";
 
+function datosFormulariosSonValidos(titulo, descripcion) {
+  const STRINGVACIO = "";
+  if (titulo == STRINGVACIO && descripcion == STRINGVACIO) {
+    return false;
+  } else if (titulo == STRINGVACIO) {
+    return false;
+  } else if (descripcion == STRINGVACIO) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 function crearProyecto(titulo, descripcion) {
   if (titulo == null) {
     return null;
@@ -51,4 +64,4 @@ function eliminarProyecto(proyecto, proyectos) {
   }
 }
 
-export { crearProyecto, agregarProyectoAProyectos, mostrarProyectos, eliminarProyecto };
+export {datosFormulariosSonValidos, crearProyecto, agregarProyectoAProyectos, mostrarProyectos, eliminarProyecto };
