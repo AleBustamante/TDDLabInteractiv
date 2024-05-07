@@ -1,4 +1,5 @@
-import datosFormulariosSonValidos from "./moduloProyectos";
+import {datosFormulariosSonValidos,crearProyecto,agregarProyectoAProyectos} from "./moduloIndex.js";
+
 
 const titulo = document.querySelector("#titulo");
 const descripcion = document.querySelector("#descripcion");
@@ -14,10 +15,11 @@ proyectosForm.addEventListener("submit", (event) => {
   if(datosFormulariosSonValidos(contenidoTitulo, contenidoDescripcion)==true)
   {
     
-    const url = `index.html?Titulo=${encodeURIComponent(contenidoTitulo)}&Descripcion=${encodeURIComponent(contenidoDescripcion)}`;
-
-            
-  window.location.href = url;
+    let proyectos = JSON.parse(localStorage.getItem("proyectos")) || [];
+    let nuevoProyecto = crearProyecto(contenidoTitulo, contenidoDescripcion);
+    agregarProyectoAProyectos(nuevoProyecto, proyectos);
+    localStorage.setItem("proyectos", JSON.stringify(proyectos));
+    window.location.href = "index.html";
       
   }
   else{
