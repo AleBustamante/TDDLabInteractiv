@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Métrica</title>
 </head>
+
 <body>
     <h1>AGREGAR MÉTRICA AL PROYECTO</h1>
     <form id="metrica-form">
@@ -17,10 +19,23 @@
         <label for="cobertura">Cobertura (%):</label>
         <input type="number" id="cobertura" min="0" max="100" step="1" required />
         <br>
+        <label for="frecuencia">Fecha y Hora (DD/MM/YYYY-HH:MM) :</label>
+        <input type="text" id="fechaHora" required />
+        <br>
+        <label for="complejidad">Complejidad de Código:</label>
+        <input type="text" id="complejidad" required />
+        <br>
+
         <button type="submit" id="boton-confirmar">Confirmar</button>
     </form>
     <div id="resultado-div"></div>
+
+    <label for="archivo-metricas">Cargar archivo de métricas:</label>
+    <input type="file" id="archivo-metricas" accept=".txt" />
+    <br>
+    
     <button id="boton-regresar2">Regresar</button>
     <script type="module" src="../src/MetricaIndex/presenterMetrica.js"></script>
 </body>
+
 </html>

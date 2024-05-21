@@ -1,4 +1,4 @@
-import { crearMetrica, agregarMetricaAProyecto } from "./moduloMetrica.js";
+import { crearMetrica, agregarMetricaAProyecto, procesarArchivoDeMetricas } from "./moduloMetrica.js";
 
 const metricaForm = document.querySelector("#metrica-form");
 const botonRegresar = document.querySelector("#boton-regresar2");
@@ -15,8 +15,10 @@ metricaForm.addEventListener("submit", (event) => {
     const pruebas = parseInt(metricaForm.querySelector("#pruebas").value);
     const lineas = parseInt(metricaForm.querySelector("#lineas").value);
     const cobertura = parseInt(metricaForm.querySelector("#cobertura").value);
+    const fechaHora = metricaForm.querySelector("#fechaHora").value;
+    const complejidad = metricaForm.querySelector("#complejidad").value;
 
-    const metrica = crearMetrica(pruebas, lineas, cobertura);
+    const metrica = crearMetrica(pruebas, lineas, cobertura, fechaHora, complejidad);
     if (metrica !== null) {
         agregarMetricaAProyecto(metrica, proyectoActual);
         const index = proyectos.findIndex(proyecto => proyecto.titulo === proyectoActual.titulo);
@@ -32,4 +34,21 @@ metricaForm.addEventListener("submit", (event) => {
 
 botonRegresar.addEventListener("click", function() {
     window.location.href = "index.html";
+});
+
+const inputFile = document.querySelector("#archivo-metricas");
+inputFile.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const contenido = e.target.result;
+            const metricas = procesarArchivoDeMetricas(contenido, proyectoActual); 
+            const index = proyectos.findIndex(proyecto => proyecto.titulo === proyectoActual.titulo);
+            proyectos[index] = proyectoActual;
+            localStorage.setItem("proyectos", JSON.stringify(proyectos));
+            div.innerHTML = "<p>Métricas del archivo cargadas y agregadas correctamente.</p>";
+        };
+        reader.readAsText(file);
+    }
 });

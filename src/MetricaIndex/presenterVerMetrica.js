@@ -1,4 +1,4 @@
-import { mostrarMetricasProyecto, eliminarMetricaDeProyecto,actualizarProyectoEnArray } from "./moduloMetrica.js";
+import { mostrarMetricasProyecto, eliminarMetricaDeProyecto, actualizarProyectoEnArray } from "./moduloMetrica.js";
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -14,27 +14,26 @@ document.addEventListener("DOMContentLoaded", () => {
     metricasContainer.appendChild(tituloProyectoElement);
 
     mostrarMetricasProyecto(proyecto);
-    
 
     const botonesEliminarMetrica = document.querySelectorAll(".eliminar-metrica");
     botonesEliminarMetrica.forEach(boton => {
-    boton.addEventListener("click", function() {
-        const metricaIndex = parseInt(this.dataset.metricaIndex);
-        const metricaEliminada = proyecto.metricas[metricaIndex];
-        const eliminacionExitosa = eliminarMetricaDeProyecto(metricaEliminada, proyecto);
-        
-        if (eliminacionExitosa) {
-            this.parentNode.remove();
-            localStorage.setItem("proyectoActual", JSON.stringify(proyecto));
-            actualizarProyectoEnArray(proyecto);
-        } else {
-            console.error("Error al eliminar la métrica del proyecto");
-        }
-    });
-    });
+        boton.addEventListener("click", function () {
+            const metricaIndex = parseInt(this.dataset.metricaIndex);
+            const metricaEliminada = proyecto.metricas[metricaIndex];
+            const eliminacionExitosa = eliminarMetricaDeProyecto(metricaEliminada, proyecto);
 
-     const botonRegresar = document.querySelector("#boton-regresar");
-     botonRegresar.addEventListener("click", function() {
-         window.location.href = "index.html";
-     });
+            if (eliminacionExitosa) {
+                this.parentNode.remove();
+                localStorage.setItem("proyectoActual", JSON.stringify(proyecto));
+                actualizarProyectoEnArray(proyecto);
+            } else {
+                console.error("Error al eliminar la métrica del proyecto");
+            }
+        });
+    });
+});
+
+const botonRegresar = document.querySelector("#boton-regresar");
+botonRegresar.addEventListener("click", function () {
+    window.location.href = "index.html";
 });
