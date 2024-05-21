@@ -245,6 +245,8 @@ function generarMetricaHTML(metrica, index) {
             <p>Complejidad de Código: ${metrica.complejidad}.</p>
             <p>Frecuencia de Commits: ${metrica.fechaHora}.</p>
             <button class="eliminar-metrica" data-metrica-index="${index}">Eliminar Métrica</button>
+            <button class="editar-metrica" data-metrica-index="${index}">Editar Métrica</button>
+
         </div>
     `;
 }
@@ -312,7 +314,60 @@ function procesarArchivoDeMetricas(contenido, proyecto) {
     return metricas;
 }
 
+function validarNumero(valor, valorPorDefecto) {
+    const numero = parseInt(valor);
+    return isNaN(numero) || numero < 0 ? valorPorDefecto : numero;
+}
 
+function validarFechaHora(fechaHora) {
+    const fechaHoraRegex = /^\d{2}\/\d{2}\/\d{4}-\d{2}:\d{2}$/;
+    return fechaHoraRegex.test(fechaHora);
+}
 
+function editarMetrica(metrica, proyecto) {
+    const opciones = `
+        ¿Qué desea editar?
+        1. Cantidad de pruebas
+        2. Líneas de código
+        3. Cobertura
+        4. Frecuencia de commits
+        5. Complejidad de código
+    `;
+    const opcion = prompt(opciones, "1");
 
-export { crearMetrica, agregarMetricaAProyecto, eliminarMetricaDeProyecto, mostrarMetricasProyecto, actualizarProyectoEnArray, procesarArchivoDeMetricas, calcularPuntajePruebas, calcularPuntajeCobertura, calcularPuntajeComplejidad, calcularPuntajeLineas, calcularDiferenciaFechasEnDias, calcularPromedioPuntajeDePruebas, calcularPromedioPuntajeDeLineas, calcularPromedioPuntajeDeCobertura, calcularPromedioPuntajeDeComplejidad, calcularPromedioPuntajeDeFrecuencia, obtenerDescripcionPromedio};
+    switch (opcion) {
+        case "1":
+            const nuevaCantidadPruebas = prompt("Editar cantidad de pruebas:", metrica.pruebasAñadidas);
+            metrica.pruebasAñadidas = validarNumero(nuevaCantidadPruebas, metrica.pruebasAñadidas);
+            break;
+        case "2":
+            const nuevasLineasCodigo = prompt("Editar líneas de código modificadas:", metrica.lineasDeCodigo);
+            metrica.lineasDeCodigo = validarNumero(nuevasLineasCodigo, metrica.lineasDeCodigo);
+            break;
+        case "3":
+            const nuevaCobertura = prompt("Editar cobertura de pruebas:", metrica.cobertura);
+            metrica.cobertura = validarNumero(nuevaCobertura, metrica.cobertura);
+            break;
+        case "4":
+            const nuevaFechaHora = prompt("Editar frecuencia de commits (DD/MM/YYYY-HH:MM):", metrica.fechaHora);
+            if (validarFechaHora(nuevaFechaHora)) {
+                metrica.fechaHora = nuevaFechaHora;
+            } else {
+                alert("Formato de fecha y hora no válido. Use el formato DD/MM/YYYY-HH:MM");
+            }
+            break;
+        case "5":
+            const nuevaComplejidad = prompt("Editar complejidad de código:", metrica.complejidad);
+            metrica.complejidad = nuevaComplejidad || metrica.complejidad;
+            break;
+        default:
+            alert("Opción no válida");
+            return;
+    }
+
+    localStorage.setItem("proyectoActual", JSON.stringify(proyecto));
+    actualizarProyectoEnArray(proyecto);
+    mostrarMetricasProyecto(proyecto);
+}
+
+export { crearMetrica, agregarMetricaAProyecto, eliminarMetricaDeProyecto, mostrarMetricasProyecto, actualizarProyectoEnArray, procesarArchivoDeMetricas, calcularPuntajePruebas, calcularPuntajeCobertura, calcularPuntajeComplejidad, calcularPuntajeLineas, calcularDiferenciaFechasEnDias, calcularPromedioPuntajeDePruebas, calcularPromedioPuntajeDeLineas, calcularPromedioPuntajeDeCobertura, calcularPromedioPuntajeDeComplejidad, calcularPromedioPuntajeDeFrecuencia, obtenerDescripcionPromedio, editarMetrica};
