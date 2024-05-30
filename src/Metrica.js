@@ -113,17 +113,23 @@ export default class Metrica {
     calcularPuntajeComplejidad(complejidad) {
         let puntajeComplejidad = 8;
     
-        if (complejidad === "Deficiente") {
-            puntajeComplejidad = 8;
-        } else if (complejidad === "Regular") {
-            puntajeComplejidad = 12;
-        } else if (complejidad === "Bueno") {
-            puntajeComplejidad = 16;
-        } else if (complejidad === "Excelente") {
-            puntajeComplejidad = 20;
+        if (typeof complejidad === 'string') {
+            const complejidadLower = complejidad.toLowerCase();
+    
+            if (complejidadLower === "deficiente") {
+                puntajeComplejidad = 8;
+            } else if (complejidadLower === "regular") {
+                puntajeComplejidad = 12;
+            } else if (complejidadLower === "bueno") {
+                puntajeComplejidad = 16;
+            } else if (complejidadLower === "excelente") {
+                puntajeComplejidad = 20;
+            }
         }
+    
         return puntajeComplejidad;
     }
+    
     
     
 
