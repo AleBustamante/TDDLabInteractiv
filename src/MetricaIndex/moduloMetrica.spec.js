@@ -280,9 +280,14 @@ describe("Metrica", () => {
       expect(metrica.calcularPuntajeComplejidad("Excelente")).toBe(20);
     });
 
-    it("Deberia devolver un puntaje de 8 para complejidad Deficiente", () => {
+    it("Deberia devolver un puntaje de 8 para complejidad Deficiente ignorando mayusculas", () => {
       metrica=new Metrica(10,10,100);
       expect(metrica.calcularPuntajeComplejidad("DeFicIEnTe")).toBe(8);
+    });
+
+    it("Deberia devolver un puntaje de 12 para complejidad Regular ignorando mayusculas", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.calcularPuntajeComplejidad("ReguLAR")).toBe(12);
     });
     
 });
