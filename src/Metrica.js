@@ -113,9 +113,13 @@ export default class Metrica {
     calcularComplejidad(complejidad)
     {
         if(complejidad=="Deficiente")
-            {
-                return 8;
-            }
+        {
+            return 8;
+        }
+        if(complejidad=="Regular")
+        {
+            return 12;
+        }
     }
 
     obtenerDescripcionPruebas(puntajePruebas) {
