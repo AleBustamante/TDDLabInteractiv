@@ -199,4 +199,12 @@ describe("Metrica", () => {
     expect(promedio).toBe(0);
   });
 
+
+    //Pruebas alejandra
+
+    it("Deberia devolver 10 puntos para puntaje de pruebas para pruebas <=10", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.calcularPuntajePruebas(10)).toBe(10);
+    });
+
 });
