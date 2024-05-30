@@ -232,4 +232,9 @@ describe("Metrica", () => {
       metrica=new Metrica(10,10,100);
       expect(metrica.obtenerDescripcionLineas(4)).toBe("Demasiado grande: El código es demasiado extenso, lo que puede dificultar su mantenimiento y comprensión.");
     });
+
+    it("Deberia devolver una descripcion de cobertura, para puntaje de cobertura 4 ", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.obtenerDescripcionCobertura(4)).toBe("Insuficiente: La cobertura de pruebas es baja, lo que deja áreas críticas sin suficiente protección.");
+    });
 });
