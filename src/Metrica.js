@@ -112,22 +112,24 @@ export default class Metrica {
 
     calcularPuntajeComplejidad(complejidad)
     {
+        let puntajeComplejidad=8;
         if(complejidad=="Deficiente")
         {
-            return 8;
+            puntajeComplejidad=8;
         }
         if(complejidad=="Regular")
         {
-            return 12;
+            puntajeComplejidad=12;
         }
         if(complejidad=="Bueno")
         {
-            return 16;
+            puntajeComplejidad=16;
         }
         if(complejidad=="Excelente")
         {
-            return 20;
+            puntajeComplejidad=20;
         }
+        return puntajeComplejidad;
     }
 
     obtenerDescripcionPruebas(puntajePruebas) {
