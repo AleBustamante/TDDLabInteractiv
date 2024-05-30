@@ -4,7 +4,7 @@ export default class Metrica {
         this.lineasDeCodigo = lineasDeCodigo;
         this.cobertura = cobertura;
     }
-    crearMetrica(pruebasAñadidas, lineasDeCodigo, cobertura) {
+    crearMetrica(pruebasAñadidas, lineasDeCodigo, cobertura,complejidad) {
         const cero = 0;
         const valorindefinido = undefined;
         const valornulo = null;

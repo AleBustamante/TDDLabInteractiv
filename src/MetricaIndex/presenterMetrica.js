@@ -15,6 +15,7 @@ metricaForm.addEventListener("submit", (event) => {
     const pruebas = parseInt(metricaForm.querySelector("#pruebas").value);
     const lineas = parseInt(metricaForm.querySelector("#lineas").value);
     const cobertura = parseInt(metricaForm.querySelector("#cobertura").value);
+    const complejidad = parseInt(metricaForm.querySelector("#complejidad").value);
 
     const aux = new Metrica();
     const metrica = aux.crearMetrica(pruebas, lineas, cobertura);
