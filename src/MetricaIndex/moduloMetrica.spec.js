@@ -289,5 +289,11 @@ describe("Metrica", () => {
       metrica=new Metrica(10,10,100);
       expect(metrica.calcularPuntajeComplejidad("ReguLAR")).toBe(12);
     });
+
+    it("Deberia devolver un puntaje de 16 para complejidad Bueno, ignorando mayusculas", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.calcularPuntajeComplejidad("BuENo")).toBe(16);
+    });
+
     
 });
