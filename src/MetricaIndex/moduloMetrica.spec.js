@@ -227,4 +227,9 @@ describe("Metrica", () => {
       metrica=new Metrica(10,10,100);
       expect(metrica.obtenerDescripcionPruebas(4)).toBe("Insuficiente: La cantidad de pruebas realizadas es baja, lo que puede afectar la calidad del código.");
     });
+
+    it("Deberia devolver una descripcion de las lineas, para puntaje de lineas 7 ", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.obtenerDescripcionLineas(4)).toBe("Demasiado grande: El código es demasiado extenso, lo que puede dificultar su mantenimiento y comprensión.");
+    });
 });
