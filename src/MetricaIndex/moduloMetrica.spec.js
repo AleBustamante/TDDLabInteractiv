@@ -207,4 +207,8 @@ describe("Metrica", () => {
       expect(metrica.calcularPuntajePruebas(10)).toBe(10);
     });
 
+    it("Deberia devolver 8 puntos para puntaje de pruebas para pruebas <=20", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.calcularPuntajePruebas(20)).toBe(8);
+    });
 });
