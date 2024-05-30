@@ -246,4 +246,9 @@ describe("Metrica", () => {
       metrica=new Metrica(10,10,100);
       expect(metrica.obtenerDescripcionTotal(15)).toBe("El proyecto necesita mejoras para alcanzar un nivel adecuado de calidad.");
     });
+
+    it("Deberia devolver una descripcion de puntaje total, para puntaje total de 5 ", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.obtenerDescripcionTotal(5)).toBe("Se requieren mejoras significativas, el proyecto tiene un bajo nivel de calidad.");
+    });
 });
