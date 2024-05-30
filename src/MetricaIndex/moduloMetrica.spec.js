@@ -251,4 +251,12 @@ describe("Metrica", () => {
       metrica=new Metrica(10,10,100);
       expect(metrica.obtenerDescripcionTotal(5)).toBe("Se requieren mejoras significativas, el proyecto tiene un bajo nivel de calidad.");
     });
+
+    //5ta HU Ale
+    it("Deberia devolver un puntaje de 8 para complejidad Deficiente", () => {
+      metrica=new Metrica(10,10,100);
+      metrica=new Metrica(10,10,100);
+      expect(metrica.calcularComplejidad("Deficiente")).toBe(8);
+    });
+
 });

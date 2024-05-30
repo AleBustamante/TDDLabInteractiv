@@ -18,7 +18,7 @@ metricaForm.addEventListener("submit", (event) => {
     const complejidad = parseInt(metricaForm.querySelector("#complejidad").value);
 
     const aux = new Metrica();
-    const metrica = aux.crearMetrica(pruebas, lineas, cobertura);
+    const metrica = aux.crearMetrica(pruebas, lineas, cobertura,complejidad);
     if (metrica !== null) {
         metrica.agregarMetricaAProyecto(metrica, proyectoActual);
         const index = proyectos.findIndex(proyecto => proyecto.titulo === proyectoActual.titulo);

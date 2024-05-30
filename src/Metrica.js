@@ -28,6 +28,7 @@ export default class Metrica {
         const puntajePruebas = this.calcularPuntajePruebas(pruebasAñadidas);
         const puntajeLineas = this.calcularPuntajeLineas(lineasDeCodigo);
         const puntajeCobertura = this.calcularPuntajeCobertura(cobertura);
+        const puntajeComplejidad=this.calcularComplejidad(complejidad);
         const puntajeTotal = puntajePruebas + puntajeLineas + puntajeCobertura;
 
         const descripcionPruebas = this.obtenerDescripcionPruebas(puntajePruebas);
@@ -107,6 +108,14 @@ export default class Metrica {
             sumaPuntajes += isNaN(metrica.cobertura) || metrica.cobertura < cero ? cero : this.calcularPuntajeCobertura(metrica.cobertura);
         });
         return sumaPuntajes / metricas.length;
+    }
+
+    calcularComplejidad(complejidad)
+    {
+        if(complejidad=="Deficiente")
+            {
+                return 8;
+            }
     }
 
     obtenerDescripcionPruebas(puntajePruebas) {
