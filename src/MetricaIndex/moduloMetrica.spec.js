@@ -255,21 +255,23 @@ describe("Metrica", () => {
     //5ta HU Ale
     it("Deberia devolver un puntaje de 8 para complejidad Deficiente", () => {
       metrica=new Metrica(10,10,100);
-      expect(metrica.calcularComplejidad("Deficiente")).toBe(8);
+      expect(metrica.calcularPuntajeComplejidad("Deficiente")).toBe(8);
     });
 
     it("Deberia devolver un puntaje de 12 para complejidad Regular", () => {
       metrica=new Metrica(10,10,100);
-      expect(metrica.calcularComplejidad("Regular")).toBe(12);
+      expect(metrica.calcularPuntajeComplejidad("Regular")).toBe(12);
     });
 
     it("Deberia devolver un puntaje de 16 para complejidad Bueno", () => {
       metrica=new Metrica(10,10,100);
-      expect(metrica.calcularComplejidad("Bueno")).toBe(16);
+      expect(metrica.calcularPuntajeComplejidad("Bueno")).toBe(16);
     });
 
     it("Deberia devolver un puntaje de 20 para complejidad Excelente", () => {
       metrica=new Metrica(10,10,100);
-      expect(metrica.calcularComplejidad("Excelente")).toBe(20);
+      expect(metrica.calcularPuntajeComplejidad("Excelente")).toBe(20);
     });
+
+    
 });

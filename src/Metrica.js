@@ -28,7 +28,7 @@ export default class Metrica {
         const puntajePruebas = this.calcularPuntajePruebas(pruebasAñadidas);
         const puntajeLineas = this.calcularPuntajeLineas(lineasDeCodigo);
         const puntajeCobertura = this.calcularPuntajeCobertura(cobertura);
-        const puntajeComplejidad=this.calcularComplejidad(complejidad);
+        const puntajeComplejidad=this.calcularPuntajeComplejidad(complejidad);
         const puntajeTotal = puntajePruebas + puntajeLineas + puntajeCobertura;
 
         const descripcionPruebas = this.obtenerDescripcionPruebas(puntajePruebas);
@@ -110,7 +110,7 @@ export default class Metrica {
         return sumaPuntajes / metricas.length;
     }
 
-    calcularComplejidad(complejidad)
+    calcularPuntajeComplejidad(complejidad)
     {
         if(complejidad=="Deficiente")
         {
