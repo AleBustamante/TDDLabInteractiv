@@ -273,5 +273,12 @@ describe("Metrica", () => {
       expect(metrica.calcularPuntajeComplejidad("Excelente")).toBe(20);
     });
 
+    it("Debería ser insensible a mayúsculas y minúsculas", () => {
+      expect(metrica.calcularPuntajeComplejidad("Deficiente")).toBe(8);
+      expect(metrica.calcularPuntajeComplejidad("Regular")).toBe(12);
+      expect(metrica.calcularPuntajeComplejidad("Bueno")).toBe(16);
+      expect(metrica.calcularPuntajeComplejidad("Excelente")).toBe(20);
+    });
+
     
 });

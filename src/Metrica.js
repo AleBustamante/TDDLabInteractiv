@@ -110,27 +110,22 @@ export default class Metrica {
         return sumaPuntajes / metricas.length;
     }
 
-    calcularPuntajeComplejidad(complejidad)
-    {
-        let puntajeComplejidad=8;
-        if(complejidad=="Deficiente")
-        {
-            puntajeComplejidad=8;
-        }
-        if(complejidad=="Regular")
-        {
-            puntajeComplejidad=12;
-        }
-        if(complejidad=="Bueno")
-        {
-            puntajeComplejidad=16;
-        }
-        if(complejidad=="Excelente")
-        {
-            puntajeComplejidad=20;
+    calcularPuntajeComplejidad(complejidad) {
+        let puntajeComplejidad = 8;
+    
+        if (complejidad === "Deficiente") {
+            puntajeComplejidad = 8;
+        } else if (complejidad === "Regular") {
+            puntajeComplejidad = 12;
+        } else if (complejidad === "Bueno") {
+            puntajeComplejidad = 16;
+        } else if (complejidad === "Excelente") {
+            puntajeComplejidad = 20;
         }
         return puntajeComplejidad;
     }
+    
+    
 
     obtenerDescripcionPruebas(puntajePruebas) {
         if (puntajePruebas >= 9) {
