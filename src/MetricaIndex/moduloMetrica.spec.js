@@ -268,4 +268,8 @@ describe("Metrica", () => {
       expect(metrica.calcularComplejidad("Bueno")).toBe(16);
     });
 
+    it("Deberia devolver un puntaje de 20 para complejidad Excelente", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.calcularComplejidad("Excelente")).toBe(20);
+    });
 });

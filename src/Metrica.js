@@ -124,6 +124,10 @@ export default class Metrica {
         {
             return 16;
         }
+        if(complejidad=="Excelente")
+        {
+            return 20;
+        }
     }
 
     obtenerDescripcionPruebas(puntajePruebas) {
