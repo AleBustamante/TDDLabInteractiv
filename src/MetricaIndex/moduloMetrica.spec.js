@@ -218,8 +218,13 @@ describe("Metrica", () => {
     });
 
     
-    it("Deberia devolver 5 puntos para puntaje de pruebas para pruebas mayores a 21", () => {
+    it("Deberia devolver una descripcion para 7 pruebas", () => {
       metrica=new Metrica(10,10,100);
       expect(metrica.obtenerDescripcionPruebas(7)).toBe("Bueno: Se han realizado pruebas adecuadas, pero pueden ser mejoradas para una cobertura más completa.");
+    });
+
+    it("Deberia devolver una descripcion para 4 pruebas", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.obtenerDescripcionPruebas(4)).toBe("Insuficiente: La cantidad de pruebas realizadas es baja, lo que puede afectar la calidad del código.");
     });
 });
