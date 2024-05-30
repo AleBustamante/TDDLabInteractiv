@@ -263,4 +263,9 @@ describe("Metrica", () => {
       expect(metrica.calcularComplejidad("Regular")).toBe(12);
     });
 
+    it("Deberia devolver un puntaje de 16 para complejidad Bueno", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.calcularComplejidad("Bueno")).toBe(16);
+    });
+
 });
