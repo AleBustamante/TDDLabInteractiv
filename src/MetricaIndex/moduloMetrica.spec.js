@@ -237,4 +237,13 @@ describe("Metrica", () => {
       metrica=new Metrica(10,10,100);
       expect(metrica.obtenerDescripcionCobertura(4)).toBe("Insuficiente: La cobertura de pruebas es baja, lo que deja áreas críticas sin suficiente protección.");
     });
+
+    it("Deberia devolver una descripcion de puntaje total, para puntaje total de 20 ", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.obtenerDescripcionTotal(20)).toBe("Buen trabajo, el proyecto tiene un nivel aceptable de calidad.");
+    });
+    it("Deberia devolver una descripcion de puntaje total, para puntaje total de 15 ", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.obtenerDescripcionTotal(15)).toBe("El proyecto necesita mejoras para alcanzar un nivel adecuado de calidad.");
+    });
 });
