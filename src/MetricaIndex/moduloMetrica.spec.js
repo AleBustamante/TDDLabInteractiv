@@ -211,4 +211,9 @@ describe("Metrica", () => {
       metrica=new Metrica(10,10,100);
       expect(metrica.calcularPuntajePruebas(20)).toBe(8);
     });
+
+    it("Deberia devolver 5 puntos para puntaje de pruebas para pruebas mayores a 21", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.calcularPuntajePruebas(30)).toBe(5);
+    });
 });
