@@ -135,6 +135,7 @@ export default class Metrica {
         if (segundaMetrica.fecha === undefined || segundaMetrica.fecha === null) {
             return 20;
         }
+        return 20;
     }
     calcularPromedioPuntajeComplejidad(metricas) {
         let sumaPuntajes = 0;
