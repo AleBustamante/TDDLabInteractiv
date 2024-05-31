@@ -146,7 +146,7 @@ export default class Metrica {
         if (tiempoTranscurrido < milisegundosEnDia * 4) {
             return 12;
         }
-        return 20;
+        return 8;
     }
     calcularPromedioPuntajeComplejidad(metricas) {
         let sumaPuntajes = 0;
