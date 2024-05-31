@@ -199,6 +199,8 @@ export default class Metrica {
                 return "Excelente: los commits se han realizado de forma muy incremental en el tiempo"
             case 16:
                 return "Bueno: los commits se han realizado de forma suficientemente incremental en el tiempo"
+            case 12:
+                return "Regular: los commits se han realizado de forma incremental, pero se puede mejorar"
         }
     }
 

@@ -419,6 +419,11 @@ describe("Mensaje adecuado para frecuencia", () => {
     const metrica = aux.crearMetrica(1, 10, 90, "2024-01-01T10:00:00", "Excelente");
     expect(metrica.obtenerDescripcionFrecuencia(16)).toBe("Bueno: los commits se han realizado de forma suficientemente incremental en el tiempo");
   });
+  it("Deberia devolver el mensaje adecuado para un frecuencia regular", () => {
+    const aux = new Metrica();
+    const metrica = aux.crearMetrica(1, 10, 90, "2024-01-01T10:00:00", "Excelente");
+    expect(metrica.obtenerDescripcionFrecuencia(12)).toBe("Regular: los commits se han realizado de forma incremental, pero se puede mejorar");
+  });
 });
 
 describe("agregarMetricaAProyecto", () => {
