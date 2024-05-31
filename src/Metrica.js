@@ -197,6 +197,8 @@ export default class Metrica {
         switch (puntajeFrecuencia) {
             case 20:
                 return "Excelente: los commits se han realizado de forma muy incremental en el tiempo"
+            case 16:
+                return "Bueno: los commits se han realizado de forma suficientemente incremental en el tiempo"
         }
     }
 
