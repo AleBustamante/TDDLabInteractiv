@@ -143,6 +143,9 @@ export default class Metrica {
         if (tiempoTranscurrido < milisegundosEnDia * 3) {
             return 16;
         }
+        if (tiempoTranscurrido < milisegundosEnDia * 4) {
+            return 12;
+        }
         return 20;
     }
     calcularPromedioPuntajeComplejidad(metricas) {

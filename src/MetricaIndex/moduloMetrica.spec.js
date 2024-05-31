@@ -373,6 +373,22 @@ describe("calcular puntaje por frecuencia", () => {
     const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
     expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(16);
   });
+  it("Deberia mostrar un puntaje de 12 para un commit realizado a mas de 3 y menos de 4 dias del anterior", () => {
+    const aux = new Metrica();
+    const primeraFecha = new Date("2024-01-01T10:00:00");
+    const segundaFecha = new Date("2024-01-04T20:00:00");
+    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+    const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
+    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(12);
+  });
+  it("Deberia mostrar un puntaje de 12 para un commit realizado a mas de 3 y menos de 4 dias del anterior (caso extremo)", () => {
+    const aux = new Metrica();
+    const primeraFecha = new Date("2024-01-01T10:00:00");
+    const segundaFecha = new Date("2024-01-05T09:59:59");
+    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+    const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
+    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(12);
+  });
 });
 
 describe("agregarMetricaAProyecto", () => {
