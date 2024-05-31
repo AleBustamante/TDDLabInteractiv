@@ -320,6 +320,16 @@ describe("Metrica", () => {
       const promedio = metrica.calcularPromedioPuntajeComplejidad(metricas);
       expect(promedio).toBe(14);
     });
+    it("debería devolver el puntaje de complejidad promedio si hay métricas válidas", () => {
+      const metricas = [
+        { complejidad: "Deficiente" },
+        { complejidad: "Deficiente" },
+        { complejidad: "Deficiente" },
+        { complejidad: "Deficiente" }
+      ];
+      const promedio = metrica.calcularPromedioPuntajeComplejidad(metricas);
+      expect(promedio).toBe(8);
+    });
 
 
     
