@@ -407,6 +407,15 @@ describe("calcular puntaje por frecuencia", () => {
   });
 });
 
+
+describe("Mensaje adecuado para frecuencia", () => {
+  it("Deberia devolver el mensaje adecuado para un frecuencia excelente", () => {
+    const aux = new Metrica();
+    const metrica = aux.crearMetrica(1, 10, 90, "2024-01-01T10:00:00", "Excelente");
+    expect(metrica.obtenerDescripcionFrecuencia(20)).toBe("Excelente: los commits se han realizado de forma muy incremental en el tiempo");
+  });
+});
+
 describe("agregarMetricaAProyecto", () => {
   it("Debería agregar la métrica al proyecto y retornar la última métrica agregada (no refac)", () => {
     const proyecto = new Proyecto();

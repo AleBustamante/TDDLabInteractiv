@@ -193,6 +193,13 @@ export default class Metrica {
         }
     }
 
+    obtenerDescripcionFrecuencia(puntajeFrecuencia) {
+        switch (puntajeFrecuencia) {
+            case 20:
+                return "Excelente: los commits se han realizado de forma muy incremental en el tiempo"
+        }
+    }
+
     obtenerDescripcionCobertura(puntajeCobertura) {
         if (puntajeCobertura >= 9) {
             return "Excelente: La cobertura de pruebas es muy alta, lo que garantiza una amplia protección contra errores.";
