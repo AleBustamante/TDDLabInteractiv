@@ -130,10 +130,27 @@ export default class Metrica {
     
         return puntajeComplejidad;
     }
-    calcularPromedioPuntajeComplejidad(metricas)
-    {
-        return 8;
+    calcularPromedioPuntajeComplejidad(metricas) {
+        let sumaPuntajes = 0;
+        let cantidadMétricasValidas = 0;
+    
+        metricas.forEach(metrica => {
+            const puntaje = this.calcularPuntajeComplejidad(metrica.complejidad);
+    
+            if (!isNaN(puntaje)) {
+                sumaPuntajes += puntaje;
+                cantidadMétricasValidas++;
+            }
+        });
+    
+        if (cantidadMétricasValidas === 0) {
+            return 8;
+        }
+    
+        return sumaPuntajes / cantidadMétricasValidas;
     }
+    
+    
     
     
     
