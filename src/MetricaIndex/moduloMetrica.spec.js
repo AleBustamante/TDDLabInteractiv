@@ -109,7 +109,7 @@ describe("Metrica", () => {
     metrica = new Metrica();
   });
 
-  describe("calcularPromedioPuntajeDeLineas", () => {
+describe("calcularPromedioPuntajeDeLineas", () => {
     it("debería devolver 0 si no se proporcionan métricas", () => {
       const metricas = [];
       expect(metrica.calcularPromedioPuntajeDeLineas(metricas)).toBe(0);
@@ -330,6 +330,77 @@ describe("Metrica", () => {
       const promedio = metrica.calcularPromedioPuntajeComplejidad(metricas);
       expect(promedio).toBe(8);
     });
+
+
+describe("calcular puntaje por frecuencia", () => {
+  it("Deberia mostrar el máximo puntaje para el primer commit (todavia no se puede calcular la frecuencia de los commits)", () => {
+    const aux = new Metrica();
+    const primeraFecha = new Date("2024-01-01T10:00:00");
+    const segundaFecha = null;
+    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+    const segundaMetrica = aux.crearMetrica(1, 10, 90, null, "Excelente");
+    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(20);
+  });
+});
+
+describe("agregarMetricaAProyecto", () => {
+  it("Debería agregar la métrica al proyecto y retornar la última métrica agregada (no refac)", () => {
+    const proyecto = new Proyecto();
+    const metrica = new Metrica(10, 100, 80);
+    const ultimaMetricaAgregada = metrica.agregarMetricaAProyecto(metrica, proyecto);
+    expect(proyecto.metricas.length).toBe(1);
+    expect(ultimaMetricaAgregada).toBe(metrica);
+  });
+  it("Debería retornar un mensaje si se intenta agregar una métrica a un proyecto no existente (no refac)", () => {
+    const proyecto = null;
+    const metrica = new Metrica(10, 100, 80);
+    const mensaje = metrica.agregarMetricaAProyecto(metrica, proyecto);
+    expect(mensaje).toBe("No se puede agregar una métrica a un proyecto no existente");
+  });
+});
+
+describe("eliminarMetricaDeProyecto", () => {
+  it("Debería eliminar la métrica del proyecto y retornar un mensaje de éxito (no refac)", () => {
+    const proyecto = new Proyecto();
+    const metrica = new Metrica(10, 100, 80);
+    proyecto.metricas.push(metrica);
+    const mensaje = metrica.eliminarMetricaDeProyecto(metrica, proyecto);
+    expect(proyecto.metricas.length).toBe(0);
+    expect(mensaje).toBe("Se eliminó la métrica del proyecto con éxito");
+  });
+  it("Debería retornar un mensaje si se intenta eliminar una métrica que no existe en el proyecto (no refac)", () => {
+    const proyecto = new Proyecto();
+    const metrica = new Metrica(10, 100, 80);
+    const mensaje = metrica.eliminarMetricaDeProyecto(metrica, proyecto);
+    expect(mensaje).toBe("No se puede eliminar una métrica que no existe en el proyecto");
+  });
+});
+
+describe("calcularPuntajeLineas", () => {
+  it("Debería devolver 20 cuando las lineas de codigo son 20 o menos", () => {
+    const metrica = new Metrica();
+    expect(metrica.calcularPuntajeLineas(0)).toBe(20);
+    expect(metrica.calcularPuntajeLineas(10)).toBe(20);
+    expect(metrica.calcularPuntajeLineas(20)).toBe(20);
+  });
+  it("Debería devolver 16 cuando las lineas de codigo son menos de 40 y mas de 20", () => {
+    const metrica = new Metrica();
+    expect(metrica.calcularPuntajeLineas(40)).toBe(16);
+    expect(metrica.calcularPuntajeLineas(30)).toBe(16);
+    expect(metrica.calcularPuntajeLineas(21)).toBe(16);
+  });
+  it("Debería devolver 12 cuando las lineas de codigo son menos de 60 y mas de 40", () => {
+    const metrica = new Metrica();
+    expect(metrica.calcularPuntajeLineas(41)).toBe(12);
+    expect(metrica.calcularPuntajeLineas(50)).toBe(12);
+    expect(metrica.calcularPuntajeLineas(60)).toBe(12);
+  });
+  it("Debería devolver 8 cuando las lineas de codigo son mas de 60", () => {
+    const metrica = new Metrica();
+    expect(metrica.calcularPuntajeLineas(61)).toBe(8);
+    expect(metrica.calcularPuntajeLineas(100)).toBe(8);
+  });
+})
 
 
     

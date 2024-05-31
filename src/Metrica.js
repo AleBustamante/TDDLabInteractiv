@@ -1,9 +1,10 @@
 export default class Metrica {
-    constructor(pruebasAñadidas, lineasDeCodigo, cobertura,complejidad) {
+    constructor(pruebasAñadidas, lineasDeCodigo, cobertura, fecha, complejidad) {
         this.pruebasAñadidas = pruebasAñadidas;
         this.lineasDeCodigo = lineasDeCodigo;
         this.cobertura = cobertura;
-        this.complejidad=complejidad;
+        this.fecha = fecha;
+        this.complejidad = complejidad;
     }
     crearMetrica(pruebasAñadidas, lineasDeCodigo, cobertura,complejidad) {
         const cero = 0;
@@ -129,6 +130,11 @@ export default class Metrica {
         }
     
         return puntajeComplejidad;
+    }
+    calcularPuntajeFrecuencia(segundaMetrica) {
+        if (segundaMetrica.fecha === undefined || segundaMetrica.fecha === null) {
+            return 20;
+        }
     }
     calcularPromedioPuntajeComplejidad(metricas) {
         let sumaPuntajes = 0;
