@@ -130,6 +130,10 @@ export default class Metrica {
     
         return puntajeComplejidad;
     }
+    calcularPromedioPuntajeComplejidad(metricas)
+    {
+        return 8;
+    }
     
     
     

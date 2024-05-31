@@ -300,5 +300,17 @@ describe("Metrica", () => {
       expect(metrica.calcularPuntajeComplejidad("EXceLENte")).toBe(20);
     });
 
+    it("Deberia devolver un puntaje de 20 para complejidad Excelente, ignorando mayusculas", () => {
+      metrica=new Metrica(10,10,100);
+      expect(metrica.calcularPuntajeComplejidad("EXceLENte")).toBe(20);
+    });
+
+    it("debería devolver 8 si no hay metricas", () => {
+      const metricas = [];
+      const promedio = metrica.calcularPromedioPuntajeComplejidad(metricas);
+      expect(promedio).toBe(8);
+    });
+
+
     
 });
