@@ -1,8 +1,9 @@
 export default class Metrica {
-    constructor(pruebasAñadidas, lineasDeCodigo, cobertura) {
+    constructor(pruebasAñadidas, lineasDeCodigo, cobertura,complejidad) {
         this.pruebasAñadidas = pruebasAñadidas;
         this.lineasDeCodigo = lineasDeCodigo;
         this.cobertura = cobertura;
+        this.complejidad=complejidad;
     }
     crearMetrica(pruebasAñadidas, lineasDeCodigo, cobertura,complejidad) {
         const cero = 0;
@@ -38,7 +39,7 @@ export default class Metrica {
 
         const descripcionTotal = this.obtenerDescripcionTotal(puntajeTotal);
 
-        return new Metrica(pruebasAñadidas, lineasDeCodigo, cobertura, puntajeTotal, descripcionPruebas, descripcionLineas, descripcionCobertura, descripcionTotal);
+        return new Metrica(pruebasAñadidas, lineasDeCodigo, cobertura,complejidad, puntajeTotal, descripcionPruebas, descripcionLineas, descripcionCobertura, descripcionTotal,puntajeComplejidad);
 
     }
 
@@ -217,6 +218,7 @@ export default class Metrica {
             const puntajePruebas = this.calcularPuntajePruebas(metrica.pruebasAñadidas);
             const puntajeLineas = this.calcularPuntajeLineas(metrica.lineasDeCodigo);
             const puntajeCobertura = this.calcularPuntajeCobertura(metrica.cobertura);
+            const puntajeComplejidad=this.calcularPuntajeComplejidad(metrica.complejidad);
             const puntajeTotal = puntajePruebas + puntajeLineas + puntajeCobertura;
 
             const descripcionPruebas = this.obtenerDescripcionPruebas(puntajePruebas);
@@ -234,6 +236,9 @@ export default class Metrica {
                 <p>Puntuación Líneas: ${puntajeLineas} - ${descripcionLineas}</p>
                 <p>Cobertura: ${metrica.cobertura}%</p>
                 <p>Puntuación Cobertura: ${puntajeCobertura} - ${descripcionCobertura}</p>
+
+                <p>Complejidad: ${metrica.complejidad}</p>
+                <p>Puntuación complejidad: ${puntajeComplejidad}</p>
                 <p>Puntaje Total: ${puntajeTotal} - ${descripcionTotal}</p>
                 <button class="eliminar-metrica" data-metrica-index="${index}">Eliminar Métrica</button>
             `;
