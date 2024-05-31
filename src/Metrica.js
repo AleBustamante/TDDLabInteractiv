@@ -135,6 +135,14 @@ export default class Metrica {
         if (segundaMetrica.fecha === undefined || segundaMetrica.fecha === null) {
             return 20;
         }
+        const milisegundosEnDia = 86400000;
+        const tiempoTranscurrido = segundaMetrica.fecha - this.fecha
+        if (tiempoTranscurrido < milisegundosEnDia * 2) {
+            return 20;
+        }
+        if (tiempoTranscurrido < milisegundosEnDia * 3) {
+            return 16;
+        }
         return 20;
     }
     calcularPromedioPuntajeComplejidad(metricas) {
