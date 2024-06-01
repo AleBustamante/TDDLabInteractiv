@@ -235,7 +235,7 @@ describe("Metrica", () => {
 
     it("Deberia devolver una descripcion de cobertura, para puntaje de cobertura 4 ", () => {
       metrica=new Metrica(10,10,100);
-      expect(metrica.obtenerDescripcionCobertura(4)).toBe("Insuficiente: La cobertura de pruebas es baja, lo que deja áreas críticas sin suficiente protección.");
+      expect(metrica.obtenerDescripcionCobertura(4)).toBe("Deficiente: La cobertura de pruebas es baja, lo que deja áreas críticas sin suficiente protección.");
     });
 
     it("Deberia devolver una descripcion de puntaje total, para puntaje total de 20 ", () => {
@@ -339,7 +339,7 @@ describe("calcular puntaje por frecuencia", () => {
     const segundaFecha = null;
     const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
     const segundaMetrica = aux.crearMetrica(1, 10, 90, null, "Excelente");
-    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(20);
+    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(20);
   });
   it("Deberia mostrar el máximo puntaje para un commit realizado a menos de 2 dias del anterior", () => {
     const aux = new Metrica();
@@ -347,7 +347,7 @@ describe("calcular puntaje por frecuencia", () => {
     const segundaFecha = new Date("2024-01-02T10:00:00");
     const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
     const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(20);
+    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(20);
   });
   it("Deberia mostrar el máximo puntaje para un commit realizado a menos de 2 dias del anterior (caso limite)", () => {
     const aux = new Metrica();
@@ -355,7 +355,7 @@ describe("calcular puntaje por frecuencia", () => {
     const segundaFecha = new Date("2024-01-03T09:59:59");
     const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
     const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(20);
+    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(20);
   });
   it("Deberia mostrar un puntaje de 16 para un commit realizado a mas de 2 y menos de 3 dias del anterior", () => {
     const aux = new Metrica();
@@ -363,7 +363,7 @@ describe("calcular puntaje por frecuencia", () => {
     const segundaFecha = new Date("2024-01-03T20:00:00");
     const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
     const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(16);
+    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(16);
   });
   it("Deberia mostrar un puntaje de 16 para un commit realizado a mas de 2 y menos de 3 dias del anterior (caso extremo)", () => {
     const aux = new Metrica();
@@ -371,7 +371,7 @@ describe("calcular puntaje por frecuencia", () => {
     const segundaFecha = new Date("2024-01-04T09:59:59");
     const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
     const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(16);
+    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(16);
   });
   it("Deberia mostrar un puntaje de 12 para un commit realizado a mas de 3 y menos de 4 dias del anterior", () => {
     const aux = new Metrica();
@@ -379,7 +379,7 @@ describe("calcular puntaje por frecuencia", () => {
     const segundaFecha = new Date("2024-01-04T20:00:00");
     const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
     const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(12);
+    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(12);
   });
   it("Deberia mostrar un puntaje de 12 para un commit realizado a mas de 3 y menos de 4 dias del anterior (caso extremo)", () => {
     const aux = new Metrica();
@@ -387,7 +387,7 @@ describe("calcular puntaje por frecuencia", () => {
     const segundaFecha = new Date("2024-01-05T09:59:59");
     const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
     const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(12);
+    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(12);
   });
   it("Deberia mostrar un puntaje de 8 para un commit realizado a mas de 4 dias del anterior", () => {
     const aux = new Metrica();
@@ -395,7 +395,7 @@ describe("calcular puntaje por frecuencia", () => {
     const segundaFecha = new Date("2024-01-07T10:00:00");
     const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
     const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(8);
+    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(8);
   });
   it("Deberia mostrar un puntaje de 8 para un commit realizado a mas de 4 dias del anterior (caso extremo)", () => {
     const aux = new Metrica();
@@ -403,7 +403,7 @@ describe("calcular puntaje por frecuencia", () => {
     const segundaFecha = new Date("2024-01-05T10:00:01");
     const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
     const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(primeraMetrica.calcularPuntajeFrecuencia(segundaMetrica)).toBe(8);
+    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(8);
   });
 });
 
