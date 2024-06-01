@@ -51,6 +51,22 @@ export default class Metrica {
         }
     }
 
+    calcularPromedioPuntajeDePrueba(metricas) {
+        const cero = 0;
+        if (metricas.length === cero) {
+            return cero;
+        }
+        let sumaMetricasConPrueba = cero;
+        metricas.forEach(metrica => {
+            sumaMetricasConPrueba += isNaN(metrica.pruebasAñadidas) || metrica.pruebasAñadidas < cero ? cero : metrica.pruebasAñadidas;
+        });
+        let porcentajeMetricaConPrueba= sumaMetricasConPrueba / metricas.length;
+        if(porcentajeMetricaConPrueba == 1)
+        {
+            return 20;
+        }
+    }
+
     calcularPuntajeLineas(lineasDeCodigo) {
         const puntaje20 = 20;
         const puntaje16 = 16;

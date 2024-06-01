@@ -251,4 +251,13 @@ describe("Metrica", () => {
       metrica=new Metrica(10,10,100);
       expect(metrica.obtenerDescripcionTotal(5)).toBe("Se requieren mejoras significativas, el proyecto tiene un bajo nivel de calidad.");
     });
+    it("si en todos los commit del proyecto se incluyen pruebas, el puntaje sera de 20 puntos", () => {
+      const metricas = [
+        { pruebasAñadidas: 1},
+        { pruebasAñadidas: 1},
+        { pruebasAñadidas: 1}
+      ];
+      const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
+      expect(puntaje).toBe(20);
+    });
 });
