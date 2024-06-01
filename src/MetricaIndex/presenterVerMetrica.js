@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tituloProyectoElement.textContent = `Título del Proyecto: ${tituloProyecto}`;
     metricasContainer.appendChild(tituloProyectoElement);
 
-    const metrica = new Metrica();
+    const metrica = new Metrica(proyecto.metricas[0].pruebasAñadidas, proyecto.metricas[0].lineasDeCodigo, proyecto.metricas[0].cobertura, proyecto.metricas[0].fecha, proyecto.metricas[0].complejidad);
     metrica.mostrarMetricasProyecto(proyecto);
     
 
