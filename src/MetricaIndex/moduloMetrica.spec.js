@@ -292,8 +292,6 @@ describe("Metrica", () => {
       const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
       expect(puntaje).toBe(8);
     });
-});
-=======
 
     //5ta HU Ale
     it("Deberia devolver un puntaje de 8 para complejidad Deficiente", () => {
