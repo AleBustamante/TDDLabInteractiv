@@ -1,9 +1,10 @@
 export default class Metrica {
-    constructor(pruebasAñadidas, lineasDeCodigo, cobertura,complejidad) {
+    constructor(pruebasAñadidas, lineasDeCodigo, cobertura, fecha, complejidad) {
         this.pruebasAñadidas = pruebasAñadidas;
         this.lineasDeCodigo = lineasDeCodigo;
         this.cobertura = cobertura;
-        this.complejidad=complejidad;
+        this.fecha = fecha;
+        this.complejidad = complejidad;
     }
     crearMetrica(pruebasAñadidas, lineasDeCodigo, cobertura,complejidad) {
         const cero = 0;
@@ -130,6 +131,25 @@ export default class Metrica {
     
         return puntajeComplejidad;
     }
+    calcularPuntajeFrecuencia(metricaPrevia) {
+        if (metricaPrevia === undefined || metricaPrevia === null) {
+            return 20;
+        }
+        const milisegundosEnDia = 86400000;
+        const fecha1 = new Date(metricaPrevia.fecha);
+        const fecha2 = new Date(this.fecha);
+        const tiempoTranscurrido = fecha2 - fecha1;
+        if (tiempoTranscurrido < milisegundosEnDia * 2) {
+            return 20;
+        }
+        if (tiempoTranscurrido < milisegundosEnDia * 3) {
+            return 16;
+        }
+        if (tiempoTranscurrido < milisegundosEnDia * 4) {
+            return 12;
+        }
+        return 8;
+    }
     calcularPromedioPuntajeComplejidad(metricas) {
         let sumaPuntajes = 0;
         let cantidadMétricasValidas = 0;
@@ -175,16 +195,29 @@ export default class Metrica {
         }
     }
 
-    obtenerDescripcionCobertura(puntajeCobertura) {
-        if (puntajeCobertura >= 9) {
-            return "Excelente: La cobertura de pruebas es muy alta, lo que garantiza una amplia protección contra errores.";
-        } else if (puntajeCobertura >= 7) {
-            return "Bueno: La cobertura de pruebas es adecuada, aunque pueden existir áreas que necesiten más pruebas.";
-        } else {
-            return "Insuficiente: La cobertura de pruebas es baja, lo que deja áreas críticas sin suficiente protección.";
+    obtenerDescripcionFrecuencia(puntajeFrecuencia) {
+        switch (puntajeFrecuencia) {
+            case 20:
+                return "Excelente: los commits se han realizado de forma muy incremental en el tiempo"
+            case 16:
+                return "Bueno: los commits se han realizado de forma suficientemente incremental en el tiempo"
+            case 12:
+                return "Regular: los commits se han realizado de forma incremental, pero se puede mejorar"
+            case 8:
+                return "Deficiente: los commits no se han realizado de forma incremental"
         }
     }
-
+    obtenerDescripcionCobertura(puntaje) {
+        if (puntaje > 16 && puntaje <= 20) {
+            return "Excelente: La cobertura de pruebas es muy alta, lo que garantiza una amplia protección contra errores.";
+        } else if (puntaje >= 12 && puntaje <= 16) {
+            return "Bueno: La cobertura de pruebas es adecuada, aunque pueden existir áreas que necesiten más pruebas.";
+        } else if (puntaje > 8 && puntaje <= 12) {
+            return "Regular: La cobertura no es la ideal, podría mejorarse bastante.";
+        } else {
+            return "Deficiente: La cobertura de pruebas es baja, lo que deja áreas críticas sin suficiente protección.";
+        }
+    }
 
     obtenerDescripcionTotal(puntajeTotal) {
         if (puntajeTotal >= 25) {
@@ -235,16 +268,20 @@ export default class Metrica {
         const metricasContainer = document.querySelector("#metricas-container");
         metricasContainer.innerHTML = "";
 
+        let metricaAnterior = null;
         proyecto.metricas.forEach((metrica, index) => {
+            this.fecha = metrica.fecha;
             const puntajePruebas = this.calcularPuntajePruebas(metrica.pruebasAñadidas);
             const puntajeLineas = this.calcularPuntajeLineas(metrica.lineasDeCodigo);
             const puntajeCobertura = this.calcularPuntajeCobertura(metrica.cobertura);
             const puntajeComplejidad=this.calcularPuntajeComplejidad(metrica.complejidad);
+            const puntajeFrecuencia = this.calcularPuntajeFrecuencia(metricaAnterior);
             const puntajeTotal = puntajePruebas + puntajeLineas + puntajeCobertura;
 
             const descripcionPruebas = this.obtenerDescripcionPruebas(puntajePruebas);
             const descripcionLineas = this.obtenerDescripcionLineas(puntajeLineas);
             const descripcionCobertura = this.obtenerDescripcionCobertura(puntajeCobertura);
+            const descripcionFrecuencia = this.obtenerDescripcionFrecuencia(puntajeFrecuencia);
             const descripcionTotal = this.obtenerDescripcionTotal(puntajeTotal);
 
 
@@ -260,10 +297,15 @@ export default class Metrica {
 
                 <p>Complejidad: ${metrica.complejidad}</p>
                 <p>Puntuación complejidad: ${puntajeComplejidad}</p>
+
+                <p>Fecha del commit: ${metrica.fecha}</p>
+                <p>Puntuación Frecuencia: ${puntajeFrecuencia} - ${descripcionFrecuencia}</p>
+
                 <p>Puntaje Total: ${puntajeTotal} - ${descripcionTotal}</p>
                 <button class="eliminar-metrica" data-metrica-index="${index}">Eliminar Métrica</button>
             `;
             metricasContainer.appendChild(metricaElement);
+            metricaAnterior = metrica;
 
         });
     }
