@@ -70,6 +70,9 @@ export default class Metrica {
         }else if(porcentajeMetricaConPrueba < 0.8 && porcentajeMetricaConPrueba >= 0.6)
         {
             return 12;
+        }else if(porcentajeMetricaConPrueba < 0.6 && porcentajeMetricaConPrueba >= 0)
+        {
+            return 8;
         }else{
             return 0;
         }

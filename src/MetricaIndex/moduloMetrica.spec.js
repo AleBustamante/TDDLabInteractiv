@@ -281,4 +281,14 @@ describe("Metrica", () => {
       const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
       expect(puntaje).toBe(12);
     });
+    it("si en el 0 a 60% de los commits del proyecto se incluyen pruebas, el puntaje sera de 8 puntos", () => {
+      const metricas = [
+        { pruebasAñadidas: 1},
+        { pruebasAñadidas: 0},
+        { pruebasAñadidas: 0},
+        { pruebasAñadidas: 1}
+      ];
+      const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
+      expect(puntaje).toBe(8);
+    });
 });
