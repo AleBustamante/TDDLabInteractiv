@@ -613,3 +613,31 @@ describe('calcularPromedioPuntajeDeFrecuencia', () => {
       expect(resultado).toBe(puntajeEsperado);
   });
 });
+
+//puntaje total
+
+describe("calcularPuntajeTotal", () => {
+  let metrica;
+  let metricasMock;
+
+  beforeEach(() => {
+      metrica = new Metrica();
+      metricasMock = [
+          new Metrica(10, 20, 80, new Date("2024-06-01T08:00:00"), "Bueno"),
+          new Metrica(20, 40, 90, new Date("2024-06-02T08:00:00"), "Excelente")
+      ];
+  });
+
+  it("Debería devolver la suma de los promedios de todas las métricas", () => {
+      const resultado = metrica.calcularPuntajeTotal(metricasMock);
+      const esperado = (
+          (metrica.calcularPuntajePruebas(10) + metrica.calcularPuntajePruebas(20)) / 2 +
+          (metrica.calcularPuntajeLineas(20) + metrica.calcularPuntajeLineas(40)) / 2 +
+          (metrica.calcularPuntajeCobertura(80) + metrica.calcularPuntajeCobertura(90)) / 2 +
+          (metrica.calcularPuntajeComplejidad("Bueno") + metrica.calcularPuntajeComplejidad("Excelente")) / 2 +
+          (metrica.calcularPuntajeFrecuencia(metricasMock[0]) + metrica.calcularPuntajeFrecuencia(metricasMock[1])) / 2
+      );
+      expect(resultado).toBeCloseTo(esperado, 5);
+  });
+
+});

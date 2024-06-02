@@ -190,6 +190,17 @@ export default class Metrica {
         return sumaFrecuencias / metricas.length;
     }
 
+    calcularPuntajeTotal(metricas) {
+        const promedioPruebas = this.calcularPromedioPuntajeDePruebas(metricas);
+        const promedioLineas = this.calcularPromedioPuntajeDeLineas(metricas);
+        const promedioCobertura = this.calcularPromedioPuntajeDeCobertura(metricas);
+        const promedioComplejidad = this.calcularPromedioPuntajeComplejidad(metricas);
+        const promedioFrecuencia = this.calcularPromedioPuntajeDeFrecuencia(metricas);
+    
+        const sumaPromedios = promedioPruebas + promedioLineas + promedioCobertura + promedioComplejidad + promedioFrecuencia;
+    
+        return sumaPromedios;
+    }
 
     obtenerDescripcionPruebas(puntajePruebas) {
         if (puntajePruebas >= 9) {
