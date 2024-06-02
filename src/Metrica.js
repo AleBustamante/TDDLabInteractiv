@@ -315,6 +315,8 @@ export default class Metrica {
     obtenerDescripcionPromedio(puntaje) {
         if (puntaje > 16 && puntaje <= 20) {
             return "Excelente";
+        } else if (puntaje >= 12 && puntaje <= 16) {
+            return "Bueno";
         } 
     }
 
