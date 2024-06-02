@@ -640,4 +640,20 @@ describe("calcularPuntajeTotal", () => {
       expect(resultado).toBeCloseTo(esperado, 5);
   });
 
+
+  it("Debería manejar métricas con valores extremos", () => {
+      const extremeMetricas = [
+          new Metrica(0, 0, 0, new Date("2024-06-01T08:00:00"), "Deficiente"),
+          new Metrica(100, 1000, 100, new Date("2024-06-02T08:00:00"), "Excelente")
+      ];
+      const resultado = metrica.calcularPuntajeTotal(extremeMetricas);
+      const esperado = (
+          (metrica.calcularPuntajePruebas(0) + metrica.calcularPuntajePruebas(100)) / 2 +
+          (metrica.calcularPuntajeLineas(0) + metrica.calcularPuntajeLineas(1000)) / 2 +
+          (metrica.calcularPuntajeCobertura(0) + metrica.calcularPuntajeCobertura(100)) / 2 +
+          (metrica.calcularPuntajeComplejidad("Deficiente") + metrica.calcularPuntajeComplejidad("Excelente")) / 2 +
+          (metrica.calcularPuntajeFrecuencia(extremeMetricas[0]) + metrica.calcularPuntajeFrecuencia(extremeMetricas[1])) / 2
+      );
+      expect(resultado).toBeCloseTo(esperado, 5);
+  });
 });
