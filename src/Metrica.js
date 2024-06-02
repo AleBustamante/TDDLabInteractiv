@@ -45,35 +45,31 @@ export default class Metrica {
     }
 
     calcularPuntajePruebas(pruebasAñadidas) {
-        if (pruebasAñadidas <= 10) {
-            return 10;
-        } else if (pruebasAñadidas <= 20) {
-            return 8;
+        if (pruebasAñadidas >= 1) {
+            return 20
         } else {
-            return 5;
+            return 8;
         }
     }
 
-    calcularPromedioPuntajeDePrueba(metricas) {
-        const cero = 0;
-        if (metricas.length === cero) {
-            return cero;
-        }
-        let sumaMetricasConPrueba = cero;
+    calcularPromedioPuntajeDePruebas(metricas) {
+        let sumaPuntajes = 0;
         metricas.forEach(metrica => {
-            sumaMetricasConPrueba += isNaN(metrica.pruebasAñadidas) || metrica.pruebasAñadidas < cero ? cero : metrica.pruebasAñadidas;
+            sumaPuntajes += isNaN(metrica.pruebasAñadidas) || metrica.pruebasAñadidas < 0 ? 0 : calcularPuntajePruebas(metrica.pruebasAñadidas);
         });
-        let porcentajeMetricaConPrueba = sumaMetricasConPrueba / metricas.length;
-        if (porcentajeMetricaConPrueba == 1) {
+        return sumaPuntajes / metricas.length;
+    }
+    
+
+    calcularPuntajeLineas(lineasDeCodigo) {
+        if (lineasDeCodigo <= 20) {
             return 20;
-        } else if (porcentajeMetricaConPrueba < 1 && porcentajeMetricaConPrueba >= 0.8) {
+        } else if (lineasDeCodigo <= 40) {
             return 16;
-        } else if (porcentajeMetricaConPrueba < 0.8 && porcentajeMetricaConPrueba >= 0.6) {
+        } else if (lineasDeCodigo <= 60) {
             return 12;
-        } else if (porcentajeMetricaConPrueba < 0.6 && porcentajeMetricaConPrueba >= 0) {
-            return 8;
         } else {
-            return 0;
+            return 8;
         }
     }
 

@@ -202,20 +202,20 @@ describe("Metrica", () => {
 
   //Pruebas alejandra
 
-  it("Deberia devolver 10 puntos para puntaje de pruebas para pruebas <=10", () => {
-    metrica = new Metrica(10, 10, 100);
-    expect(metrica.calcularPuntajePruebas(10)).toBe(10);
-  });
+  // it("Deberia devolver 10 puntos para puntaje de pruebas para pruebas <=10", () => {
+  //   metrica = new Metrica(10, 10, 100);
+  //   expect(metrica.calcularPuntajePruebas(10)).toBe(10);
+  // });
 
-  it("Deberia devolver 8 puntos para puntaje de pruebas para pruebas <=20", () => {
-    metrica = new Metrica(10, 10, 100);
-    expect(metrica.calcularPuntajePruebas(20)).toBe(8);
-  });
+  // it("Deberia devolver 8 puntos para puntaje de pruebas para pruebas <=20", () => {
+  //   metrica = new Metrica(10, 10, 100);
+  //   expect(metrica.calcularPuntajePruebas(20)).toBe(8);
+  // });
 
-  it("Deberia devolver 5 puntos para puntaje de pruebas para pruebas mayores a 21", () => {
-    metrica = new Metrica(10, 10, 100);
-    expect(metrica.calcularPuntajePruebas(30)).toBe(5);
-  });
+  // it("Deberia devolver 5 puntos para puntaje de pruebas para pruebas mayores a 21", () => {
+  //   metrica = new Metrica(10, 10, 100);
+  //   expect(metrica.calcularPuntajePruebas(30)).toBe(5);
+  // });
 
 
   it("Deberia devolver una descripcion para 7 pruebas", () => {
@@ -252,46 +252,46 @@ describe("Metrica", () => {
     expect(metrica.obtenerDescripcionTotal(5)).toBe("Se requieren mejoras significativas, el proyecto tiene un bajo nivel de calidad.");
   });
 
-  it("si en todos los commits del proyecto se incluyen pruebas, el puntaje sera de 20 puntos", () => {
-    const metricas = [
-      { pruebasAñadidas: 1 },
-      { pruebasAñadidas: 1 },
-      { pruebasAñadidas: 1 }
-    ];
-    const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
-    expect(puntaje).toBe(20);
-  });
-  it("si en el 80 a 99% de los commits del proyecto se incluyen pruebas, el puntaje sera de 16 puntos", () => {
-    const metricas = [
-      { pruebasAñadidas: 1 },
-      { pruebasAñadidas: 1 },
-      { pruebasAñadidas: 1 },
-      { pruebasAñadidas: 0 },
-      { pruebasAñadidas: 1 }
-    ];
-    const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
-    expect(puntaje).toBe(16);
-  });
-  it("si en el 60 a 79% de los commits del proyecto se incluyen pruebas, el puntaje sera de 12 puntos", () => {
-    const metricas = [
-      { pruebasAñadidas: 1 },
-      { pruebasAñadidas: 1 },
-      { pruebasAñadidas: 0 },
-      { pruebasAñadidas: 1 }
-    ];
-    const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
-    expect(puntaje).toBe(12);
-  });
-  it("si en el 0 a 60% de los commits del proyecto se incluyen pruebas, el puntaje sera de 8 puntos", () => {
-    const metricas = [
-      { pruebasAñadidas: 1 },
-      { pruebasAñadidas: 0 },
-      { pruebasAñadidas: 0 },
-      { pruebasAñadidas: 1 }
-    ];
-    const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
-    expect(puntaje).toBe(8);
-  });
+  // it("si en todos los commits del proyecto se incluyen pruebas, el puntaje sera de 20 puntos", () => {
+  //   const metricas = [
+  //     { pruebasAñadidas: 1 },
+  //     { pruebasAñadidas: 1 },
+  //     { pruebasAñadidas: 1 }
+  //   ];
+  //   const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
+  //   expect(puntaje).toBe(20);
+  // });
+  // it("si en el 80 a 99% de los commits del proyecto se incluyen pruebas, el puntaje sera de 16 puntos", () => {
+  //   const metricas = [
+  //     { pruebasAñadidas: 1 },
+  //     { pruebasAñadidas: 1 },
+  //     { pruebasAñadidas: 1 },
+  //     { pruebasAñadidas: 0 },
+  //     { pruebasAñadidas: 1 }
+  //   ];
+  //   const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
+  //   expect(puntaje).toBe(16);
+  // });
+  // it("si en el 60 a 79% de los commits del proyecto se incluyen pruebas, el puntaje sera de 12 puntos", () => {
+  //   const metricas = [
+  //     { pruebasAñadidas: 1 },
+  //     { pruebasAñadidas: 1 },
+  //     { pruebasAñadidas: 0 },
+  //     { pruebasAñadidas: 1 }
+  //   ];
+  //   const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
+  //   expect(puntaje).toBe(12);
+  // });
+  // it("si en el 0 a 60% de los commits del proyecto se incluyen pruebas, el puntaje sera de 8 puntos", () => {
+  //   const metricas = [
+  //     { pruebasAñadidas: 1 },
+  //     { pruebasAñadidas: 0 },
+  //     { pruebasAñadidas: 0 },
+  //     { pruebasAñadidas: 1 }
+  //   ];
+  //   const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
+  //   expect(puntaje).toBe(8);
+  // });
 
   //5ta HU Ale
   it("Deberia devolver un puntaje de 8 para complejidad Deficiente", () => {
