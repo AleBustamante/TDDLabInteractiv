@@ -671,5 +671,10 @@ describe("obtenerDescripcionPromedio", () => {
     expect(metrica.obtenerDescripcionPromedio(15)).toBe("Bueno");
   });
 
+  it("Debería devolver 'Regular' para puntajes entre 8 y 12", () => {
+    const metrica = new Metrica();
+    expect(metrica.obtenerDescripcionPromedio(10)).toBe("Regular");
+    expect(metrica.obtenerDescripcionPromedio(8.5)).toBe("Regular");
+  });
 
 });

@@ -317,6 +317,8 @@ export default class Metrica {
             return "Excelente";
         } else if (puntaje >= 12 && puntaje <= 16) {
             return "Bueno";
+        } else if (puntaje > 8 && puntaje <= 12) {
+            return "Regular";
         } 
     }
 
