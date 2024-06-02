@@ -287,16 +287,11 @@ export default class Metrica {
 
     procesarArchivoDeMetricas(contenido, proyecto) {
         const [pruebas, lineas, cobertura, fechaHora, complejidad] = contenido.split(',').map(value => value.trim());
-        const metrica = new Metrica(
-            parseInt(pruebas),
-            parseInt(lineas),
-            parseFloat(cobertura),
-            new Date(fechaHora),
-            complejidad
-        );
+        const metrica = new Metrica(parseInt(pruebas), parseInt(lineas), parseFloat(cobertura), new Date(fechaHora), complejidad);
         this.agregarMetricaAProyecto(metrica, proyecto);
         return [metrica];
     }
+    
     
 
 
