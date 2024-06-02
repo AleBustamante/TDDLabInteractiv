@@ -569,5 +569,22 @@ describe("procesarArchivoDeMetricas", () => {
     expect(proyecto.metricas.length).toBe(0);
   });
 
+  it("Debería devolver un array de métricas correctamente procesado con líneas vacías", () => {
+    const metrica = new Metrica();
+    const contenido = "\n\n10, 20, 80, 2024-06-01T08:00:00, Bueno\n\n";
+    const proyecto = { titulo: "Proyecto de prueba", metricas: [] };
+
+    const metricasProcesadas = metrica.procesarArchivoDeMetricas(contenido, proyecto);
+
+    expect(metricasProcesadas.length).toBe(1);
+    expect(metricasProcesadas[0].pruebasAñadidas).toBe(10);
+    expect(metricasProcesadas[0].lineasDeCodigo).toBe(20);
+    expect(metricasProcesadas[0].cobertura).toBe(80);
+    expect(metricasProcesadas[0].fecha).toEqual(new Date("2024-06-01T08:00:00"));
+    expect(metricasProcesadas[0].complejidad).toBe("Bueno");
+    // Verificar que la métrica se agregó al proyecto
+    expect(proyecto.metricas.length).toBe(1);
+    expect(proyecto.metricas[0]).toBe(metricasProcesadas[0]);
+  });
 
 });
