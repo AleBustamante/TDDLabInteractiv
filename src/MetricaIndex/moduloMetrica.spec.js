@@ -557,4 +557,17 @@ describe("procesarArchivoDeMetricas", () => {
     expect(proyecto.metricas[0]).toBe(metricasProcesadas[0]);
   });
 
+  it("Debería devolver un array de métricas correctamente procesado sin métricas", () => {
+    const metrica = new Metrica();
+    const contenido = "";
+    const proyecto = { titulo: "Proyecto de prueba", metricas: [] };
+
+    const metricasProcesadas = metrica.procesarArchivoDeMetricas(contenido, proyecto);
+
+    expect(metricasProcesadas.length).toBe(0);
+    // Verificar que no se agregaron métricas al proyecto
+    expect(proyecto.metricas.length).toBe(0);
+  });
+
+
 });
