@@ -588,3 +588,14 @@ describe("procesarArchivoDeMetricas", () => {
   
 
 });
+
+//freucuencia promedio puntaje
+describe('calcularPromedioPuntajeDeFrecuencia', () => {
+  it('debería retornar 0 cuando la lista de métricas está vacía', () => {
+      const objMetricas = new Metrica();
+      const resultado = objMetricas.calcularPromedioPuntajeDeFrecuencia([]);
+      expect(resultado).toBe(0);
+  });
+
+
+});
