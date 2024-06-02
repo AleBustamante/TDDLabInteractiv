@@ -286,21 +286,18 @@ export default class Metrica {
     }
 
     procesarArchivoDeMetricas(contenido, proyecto) {
-        const lineas = contenido.trim().split('\n');
-        const metricas = [];
-    
-        lineas.forEach(linea => {
-            const valores = linea.trim().split(',').map(value => value.trim());
-            if (valores.length === 5) { 
-                const [pruebas, lineas, cobertura, fechaHora, complejidad] = valores;
+        const metricas = contenido.trim().split('\n')
+            .map(linea => linea.trim().split(',').map(value => value.trim()))
+            .filter(valores => valores.length === 5) // Filtrar líneas con exactamente 5 valores
+            .map(([pruebas, lineas, cobertura, fechaHora, complejidad]) => {
                 const metrica = new Metrica(parseInt(pruebas), parseInt(lineas), parseFloat(cobertura), new Date(fechaHora), complejidad);
-                metricas.push(metrica);
                 this.agregarMetricaAProyecto(metrica, proyecto);
-            }
-        });
+                return metrica;
+            });
     
         return metricas;
     }
+    
     
 
 
