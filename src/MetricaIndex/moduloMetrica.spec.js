@@ -537,7 +537,6 @@ describe("Metrica", () => {
 
 
 //pruebas del archivo
-
 describe("procesarArchivoDeMetricas", () => {
   it("Debería devolver un array de métricas correctamente procesado con una métrica", () => {
     const metrica = new Metrica();
@@ -586,5 +585,6 @@ describe("procesarArchivoDeMetricas", () => {
     expect(proyecto.metricas.length).toBe(1);
     expect(proyecto.metricas[0]).toBe(metricasProcesadas[0]);
   });
+  
 
 });
