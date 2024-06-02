@@ -313,11 +313,16 @@ export default class Metrica {
     }
 
     obtenerDescripcionPromedio(puntaje) {
-        if (puntaje > 16 && puntaje <= 20) {
+        const numero20 = 20;
+        const numero12 = 12;
+        const numero16 = 16;
+        const numero8 = 8;
+
+        if (puntaje > numero16 && puntaje <= numero20) {
             return "Excelente";
-        } else if (puntaje >= 12 && puntaje <= 16) {
+        } else if (puntaje >= numero12 && puntaje <= numero16) {
             return "Bueno";
-        } else if (puntaje > 8 && puntaje <= 12) {
+        } else if (puntaje > numero8 && puntaje <= numero12) {
             return "Regular";
         } else {
             return "Deficiente";
