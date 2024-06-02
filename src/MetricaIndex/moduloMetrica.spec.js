@@ -598,4 +598,18 @@ describe('calcularPromedioPuntajeDeFrecuencia', () => {
   });
 
 
+  it('debería calcular el puntaje promedio correctamente cuando hay varias métricas', () => {
+      const fechaActual = new Date();
+      const metrica1 = { fecha: new Date(fechaActual.getTime() - 86400000 * 1) }; // Hace 1 día
+      const metrica2 = { fecha: new Date(fechaActual.getTime() - 86400000 * 3) }; // Hace 3 días
+      const metrica3 = { fecha: new Date(fechaActual.getTime() - 86400000 * 5) }; // Hace 5 días
+      const metricas = [metrica1, metrica2, metrica3];
+
+      const objMetricas = new Metrica(null, null, null, fechaActual, null);
+      const resultado = objMetricas.calcularPromedioPuntajeDeFrecuencia(metricas);
+
+      // Puntajes esperados: 20 (hace 1 día), 12 (hace 3 días), 8 (hace 5 días)
+      const puntajeEsperado = (20 + 12 + 8) / 3;
+      expect(resultado).toBe(puntajeEsperado);
+  });
 });
