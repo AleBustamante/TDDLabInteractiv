@@ -657,3 +657,12 @@ describe("calcularPuntajeTotal", () => {
       expect(resultado).toBeCloseTo(esperado, 5);
   });
 });
+
+describe("obtenerDescripcionPromedio", () => {
+  it("Debería devolver 'Excelente' para puntajes entre 16 y 20", () => {
+    const metrica = new Metrica();
+    expect(metrica.obtenerDescripcionPromedio(17)).toBe("Excelente");
+    expect(metrica.obtenerDescripcionPromedio(20)).toBe("Excelente");
+  });
+
+});

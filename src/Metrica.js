@@ -312,52 +312,68 @@ export default class Metrica {
         return metricas;
     }
 
+    obtenerDescripcionPromedio(puntaje) {
+        if (puntaje > 16 && puntaje <= 20) {
+            return "Excelente";
+        } 
+    }
 
 
 
+    generarMetricaHTML(metrica, index) {
+        return `
+            <div>
+                <h3>Métrica ${index + 1}:</h3>
+                <p>Cantidad de Pruebas: ${metrica.pruebasAñadidas} nuevas pruebas.</p>
+                <p>Líneas de Código Modificadas: ${metrica.lineasDeCodigo} líneas.</p>
+                <p>Cobertura de Pruebas: ${metrica.cobertura}%.</p>
+                <p>Complejidad de Código: ${metrica.complejidad}.</p>
+                <p>Frecuencia de Commits: ${metrica.fechaHora}.</p>
+                <button class="eliminar-metrica" data-metrica-index="${index}">Eliminar Métrica</button>
+                <button class="editar-metrica" data-metrica-index="${index}">Editar Métrica</button>
+    
+            </div>
+        `;
+    }
+    
+    generarPromedioHTML(promedioPruebas, promedioLineas, promedioCobertura, promedioFrecuencia, promedioComplejidad, puntajeTotal) {
+        return `
+            <div>
+                <h3>Promedio de Puntajes Individuales:</h3>
+                <p>Cantidad de Pruebas por Commit (20%): ${promedioPruebas} puntos (${this.obtenerDescripcionPromedio(promedioPruebas)})</p>
+                <p>Líneas de Código por Commit (20%): ${promedioLineas} puntos (${this.obtenerDescripcionPromedio(promedioLineas)})</p>
+                <p>Porcentaje de Cobertura de Pruebas por Commit (20%): ${promedioCobertura} puntos (${this.obtenerDescripcionPromedio(promedioCobertura)})</p>
+                <p>Frecuencia de Commits (20%): ${promedioFrecuencia} puntos (${this.obtenerDescripcionPromedio(promedioFrecuencia)})</p>
+                <p>Complejidad de Código (20%): ${promedioComplejidad} puntos (${this.obtenerDescripcionPromedio(promedioComplejidad)})</p>
+            </div>
+            <div>
+                <h3>Puntaje Total:</h3>
+                <p>${puntajeTotal} puntos</p>
+            </div>
+        `;
+    }
+    
     mostrarMetricasProyecto(proyecto) {
         const metricasContainer = document.querySelector("#metricas-container");
         metricasContainer.innerHTML = "";
-
-        let metricaAnterior = null;
+    
         proyecto.metricas.forEach((metrica, index) => {
-            this.fecha = metrica.fecha;
-            const puntajePruebas = this.calcularPuntajePruebas(metrica.pruebasAñadidas);
-            const puntajeLineas = this.calcularPuntajeLineas(metrica.lineasDeCodigo);
-            const puntajeCobertura = this.calcularPuntajeCobertura(metrica.cobertura);
-            const puntajeComplejidad = this.calcularPuntajeComplejidad(metrica.complejidad);
-            const puntajeFrecuencia = this.calcularPuntajeFrecuencia(metricaAnterior);
-            const puntajeTotal = puntajePruebas + puntajeLineas + puntajeCobertura;
-
-            const descripcionPruebas = this.obtenerDescripcionPruebas(puntajePruebas);
-            const descripcionLineas = this.obtenerDescripcionLineas(puntajeLineas);
-            const descripcionCobertura = this.obtenerDescripcionCobertura(puntajeCobertura);
-            const descripcionFrecuencia = this.obtenerDescripcionFrecuencia(puntajeFrecuencia);
-            const descripcionTotal = this.obtenerDescripcionTotal(puntajeTotal);
-
-
-            const metricaElement = document.createElement("div");
-            metricaElement.innerHTML = `
-                <p>Métrica ${index + 1}:</p>
-                <p>Pruebas añadidas: ${metrica.pruebasAñadidas}</p>
-                <p>Puntuación Pruebas: ${puntajePruebas} - ${descripcionPruebas}</p>
-                <p>Líneas de código: ${metrica.lineasDeCodigo}</p>
-                <p>Puntuación Líneas: ${puntajeLineas} - ${descripcionLineas}</p>
-                <p>Cobertura: ${metrica.cobertura}%</p>
-                <p>Puntuación Cobertura: ${puntajeCobertura} - ${descripcionCobertura}</p>
-
-                <p>Complejidad: ${metrica.complejidad}</p>
-                <p>Puntuación complejidad: ${puntajeComplejidad}</p>
-
-                <p>Fecha del commit: ${metrica.fecha}</p>
-                <p>Puntuación Frecuencia: ${puntajeFrecuencia} - ${descripcionFrecuencia}</p>
-
-                <p>Puntaje Total: ${puntajeTotal} - ${descripcionTotal}</p>
-                <button class="eliminar-metrica" data-metrica-index="${index}">Eliminar Métrica</button>
-            `;
-            metricasContainer.appendChild(metricaElement);
-            metricaAnterior = metrica;
-
+            const metricaHTML = this.generarMetricaHTML(metrica, index);
+            metricasContainer.innerHTML += metricaHTML;
         });
+    
+        if (proyecto.metricas.length > 0) {
+            const promedioPruebas = this.calcularPromedioPuntajeDePruebas(proyecto.metricas);
+            const promedioLineas = this.calcularPromedioPuntajeDeLineas(proyecto.metricas);
+            const promedioCobertura = this.calcularPromedioPuntajeDeCobertura(proyecto.metricas);
+            const promedioFrecuencia = this.calcularPromedioPuntajeDeFrecuencia(proyecto.metricas); 
+            const promedioComplejidad = this.calcularPromedioPuntajeComplejidad(proyecto.metricas);
+    
+            const puntajeTotal = calcularPuntajeTotal(proyecto.metricas);
+    
+            const promedioHTML = this.generarPromedioHTML(promedioPruebas, promedioLineas, promedioCobertura, promedioFrecuencia, promedioComplejidad, puntajeTotal);
+            metricasContainer.innerHTML += promedioHTML;
+        }
     }
+    
 }
