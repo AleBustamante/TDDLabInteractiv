@@ -380,7 +380,7 @@ export default class Metrica {
             const promedioFrecuencia = this.calcularPromedioPuntajeDeFrecuencia(proyecto.metricas); 
             const promedioComplejidad = this.calcularPromedioPuntajeComplejidad(proyecto.metricas);
     
-            const puntajeTotal = calcularPuntajeTotal(proyecto.metricas);
+            const puntajeTotal = this.calcularPuntajeTotal(proyecto.metricas);
     
             const promedioHTML = this.generarPromedioHTML(promedioPruebas, promedioLineas, promedioCobertura, promedioFrecuencia, promedioComplejidad, puntajeTotal);
             metricasContainer.innerHTML += promedioHTML;
