@@ -677,4 +677,10 @@ describe("obtenerDescripcionPromedio", () => {
     expect(metrica.obtenerDescripcionPromedio(8.5)).toBe("Regular");
   });
 
+  it("Debería devolver 'Deficiente' para puntajes menores o iguales a 8", () => {
+    const metrica = new Metrica();
+    expect(metrica.obtenerDescripcionPromedio(8)).toBe("Deficiente");
+    expect(metrica.obtenerDescripcionPromedio(5)).toBe("Deficiente");
+    expect(metrica.obtenerDescripcionPromedio(0)).toBe("Deficiente");
+  });
 });

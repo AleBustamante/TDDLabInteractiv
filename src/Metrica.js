@@ -319,7 +319,9 @@ export default class Metrica {
             return "Bueno";
         } else if (puntaje > 8 && puntaje <= 12) {
             return "Regular";
-        } 
+        } else {
+            return "Deficiente";
+        }
     }
 
 
