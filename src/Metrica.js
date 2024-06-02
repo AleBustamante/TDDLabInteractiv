@@ -183,11 +183,11 @@ export default class Metrica {
         const cero = 0;
         if (metricas.length === cero) {
             return cero;
-        }  let suma = 0;
+        }  let sumaFrecuencias = cero;
         metricas.forEach(metrica => {
-            suma += this.calcularPuntajeFrecuencia(metrica);
+            sumaFrecuencias += this.calcularPuntajeFrecuencia(metrica);
         });
-        return suma / metricas.length;
+        return sumaFrecuencias / metricas.length;
     }
 
 
