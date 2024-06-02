@@ -10,7 +10,7 @@ let proyectos = JSON.parse(localStorage.getItem("proyectos")) || [];
 const proyectoActual = proyectos.find(proyecto => titulo === proyecto.titulo);
 
 metricaForm.addEventListener("submit", (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
 
     const pruebas = parseInt(metricaForm.querySelector("#pruebas").value);
     const lineas = parseInt(metricaForm.querySelector("#lineas").value);
@@ -35,6 +35,9 @@ metricaForm.addEventListener("submit", (event) => {
     }
 });
 
-botonRegresar.addEventListener("click", function() {
+
+
+
+botonRegresar.addEventListener("click", function () {
     window.location.href = "index.html";
 });

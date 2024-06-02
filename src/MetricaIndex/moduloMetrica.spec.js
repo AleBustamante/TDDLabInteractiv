@@ -109,7 +109,7 @@ describe("Metrica", () => {
     metrica = new Metrica();
   });
 
-describe("calcularPromedioPuntajeDeLineas", () => {
+  describe("calcularPromedioPuntajeDeLineas", () => {
     it("debería devolver 0 si no se proporcionan métricas", () => {
       const metricas = [];
       expect(metrica.calcularPromedioPuntajeDeLineas(metricas)).toBe(0);
@@ -200,338 +200,361 @@ describe("Metrica", () => {
   });
 
 
-    //Pruebas alejandra
+  //Pruebas alejandra
 
-    it("Deberia devolver 10 puntos para puntaje de pruebas para pruebas <=10", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajePruebas(10)).toBe(10);
-    });
-
-    it("Deberia devolver 8 puntos para puntaje de pruebas para pruebas <=20", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajePruebas(20)).toBe(8);
-    });
-
-    it("Deberia devolver 5 puntos para puntaje de pruebas para pruebas mayores a 21", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajePruebas(30)).toBe(5);
-    });
-
-    
-    it("Deberia devolver una descripcion para 7 pruebas", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.obtenerDescripcionPruebas(7)).toBe("Bueno: Se han realizado pruebas adecuadas, pero pueden ser mejoradas para una cobertura más completa.");
-    });
-
-    it("Deberia devolver una descripcion para 4 pruebas", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.obtenerDescripcionPruebas(4)).toBe("Insuficiente: La cantidad de pruebas realizadas es baja, lo que puede afectar la calidad del código.");
-    });
-
-    it("Deberia devolver una descripcion de las lineas, para puntaje de lineas 7 ", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.obtenerDescripcionLineas(4)).toBe("Demasiado grande: El código es demasiado extenso, lo que puede dificultar su mantenimiento y comprensión.");
-    });
-
-    it("Deberia devolver una descripcion de cobertura, para puntaje de cobertura 4 ", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.obtenerDescripcionCobertura(4)).toBe("Deficiente: La cobertura de pruebas es baja, lo que deja áreas críticas sin suficiente protección.");
-    });
-
-    it("Deberia devolver una descripcion de puntaje total, para puntaje total de 20 ", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.obtenerDescripcionTotal(20)).toBe("Buen trabajo, el proyecto tiene un nivel aceptable de calidad.");
-    });
-    it("Deberia devolver una descripcion de puntaje total, para puntaje total de 15 ", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.obtenerDescripcionTotal(15)).toBe("El proyecto necesita mejoras para alcanzar un nivel adecuado de calidad.");
-    });
-
-    it("Deberia devolver una descripcion de puntaje total, para puntaje total de 5 ", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.obtenerDescripcionTotal(5)).toBe("Se requieren mejoras significativas, el proyecto tiene un bajo nivel de calidad.");
-    });
-
-    it("si en todos los commits del proyecto se incluyen pruebas, el puntaje sera de 20 puntos", () => {
-      const metricas = [
-        { pruebasAñadidas: 1},
-        { pruebasAñadidas: 1},
-        { pruebasAñadidas: 1}
-      ];
-      const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
-      expect(puntaje).toBe(20);
-    });
-    it("si en el 80 a 99% de los commits del proyecto se incluyen pruebas, el puntaje sera de 16 puntos", () => {
-      const metricas = [
-        { pruebasAñadidas: 1},
-        { pruebasAñadidas: 1},
-        { pruebasAñadidas: 1},
-        { pruebasAñadidas: 0},
-        { pruebasAñadidas: 1}
-      ];
-      const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
-      expect(puntaje).toBe(16);
-    });
-    it("si en el 60 a 79% de los commits del proyecto se incluyen pruebas, el puntaje sera de 12 puntos", () => {
-      const metricas = [
-        { pruebasAñadidas: 1},
-        { pruebasAñadidas: 1},
-        { pruebasAñadidas: 0},
-        { pruebasAñadidas: 1}
-      ];
-      const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
-      expect(puntaje).toBe(12);
-    });
-    it("si en el 0 a 60% de los commits del proyecto se incluyen pruebas, el puntaje sera de 8 puntos", () => {
-      const metricas = [
-        { pruebasAñadidas: 1},
-        { pruebasAñadidas: 0},
-        { pruebasAñadidas: 0},
-        { pruebasAñadidas: 1}
-      ];
-      const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
-      expect(puntaje).toBe(8);
-    });
-
-    //5ta HU Ale
-    it("Deberia devolver un puntaje de 8 para complejidad Deficiente", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajeComplejidad("Deficiente")).toBe(8);
-    });
-
-    it("Deberia devolver un puntaje de 12 para complejidad Regular", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajeComplejidad("Regular")).toBe(12);
-    });
-
-    it("Deberia devolver un puntaje de 16 para complejidad Bueno", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajeComplejidad("Bueno")).toBe(16);
-    });
-
-    it("Deberia devolver un puntaje de 20 para complejidad Excelente", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajeComplejidad("Excelente")).toBe(20);
-    });
-
-    it("Debería ser insensible a mayúsculas y minúsculas", () => {
-      expect(metrica.calcularPuntajeComplejidad("Deficiente")).toBe(8);
-      expect(metrica.calcularPuntajeComplejidad("Regular")).toBe(12);
-      expect(metrica.calcularPuntajeComplejidad("Bueno")).toBe(16);
-      expect(metrica.calcularPuntajeComplejidad("Excelente")).toBe(20);
-    });
-
-    it("Deberia devolver un puntaje de 8 para complejidad Deficiente ignorando mayusculas", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajeComplejidad("DeFicIEnTe")).toBe(8);
-    });
-
-    it("Deberia devolver un puntaje de 12 para complejidad Regular ignorando mayusculas", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajeComplejidad("ReguLAR")).toBe(12);
-    });
-
-    it("Deberia devolver un puntaje de 16 para complejidad Bueno, ignorando mayusculas", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajeComplejidad("BuENo")).toBe(16);
-    });
-
-    it("Deberia devolver un puntaje de 20 para complejidad Excelente, ignorando mayusculas", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajeComplejidad("EXceLENte")).toBe(20);
-    });
-
-    it("Deberia devolver un puntaje de 20 para complejidad Excelente, ignorando mayusculas", () => {
-      metrica=new Metrica(10,10,100);
-      expect(metrica.calcularPuntajeComplejidad("EXceLENte")).toBe(20);
-    });
-
-    it("debería devolver 8 si no hay metricas", () => {
-      const metricas = [];
-      const promedio = metrica.calcularPromedioPuntajeComplejidad(metricas);
-      expect(promedio).toBe(8);
-    });
-    it("debería devolver el puntaje de complejidad promedio si hay métricas válidas", () => {
-      const metricas = [
-        { complejidad: "Deficiente" },
-        { complejidad: "Regular" },
-        { complejidad: "Bueno" },
-        { complejidad: "Excelente" }
-      ];
-      const promedio = metrica.calcularPromedioPuntajeComplejidad(metricas);
-      expect(promedio).toBe(14);
-    });
-    it("debería devolver el puntaje de complejidad promedio si hay métricas válidas", () => {
-      const metricas = [
-        { complejidad: "Deficiente" },
-        { complejidad: "Deficiente" },
-        { complejidad: "Deficiente" },
-        { complejidad: "Deficiente" }
-      ];
-      const promedio = metrica.calcularPromedioPuntajeComplejidad(metricas);
-      expect(promedio).toBe(8);
-    });
-
-
-describe("calcular puntaje por frecuencia", () => {
-  it("Deberia mostrar el máximo puntaje para el primer commit (todavia no se puede calcular la frecuencia de los commits)", () => {
-    const aux = new Metrica();
-    const primeraFecha = new Date("2024-01-01T10:00:00");
-    const segundaFecha = null;
-    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
-    const segundaMetrica = aux.crearMetrica(1, 10, 90, null, "Excelente");
-    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(20);
+  it("Deberia devolver 10 puntos para puntaje de pruebas para pruebas <=10", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajePruebas(10)).toBe(10);
   });
-  it("Deberia mostrar el máximo puntaje para un commit realizado a menos de 2 dias del anterior", () => {
-    const aux = new Metrica();
-    const primeraFecha = new Date("2024-01-01T10:00:00");
-    const segundaFecha = new Date("2024-01-02T10:00:00");
-    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
-    const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(20);
+
+  it("Deberia devolver 8 puntos para puntaje de pruebas para pruebas <=20", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajePruebas(20)).toBe(8);
   });
-  it("Deberia mostrar el máximo puntaje para un commit realizado a menos de 2 dias del anterior (caso limite)", () => {
-    const aux = new Metrica();
-    const primeraFecha = new Date("2024-01-01T10:00:00");
-    const segundaFecha = new Date("2024-01-03T09:59:59");
-    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
-    const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(20);
+
+  it("Deberia devolver 5 puntos para puntaje de pruebas para pruebas mayores a 21", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajePruebas(30)).toBe(5);
   });
-  it("Deberia mostrar un puntaje de 16 para un commit realizado a mas de 2 y menos de 3 dias del anterior", () => {
-    const aux = new Metrica();
-    const primeraFecha = new Date("2024-01-01T10:00:00");
-    const segundaFecha = new Date("2024-01-03T20:00:00");
-    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
-    const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(16);
+
+
+  it("Deberia devolver una descripcion para 7 pruebas", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.obtenerDescripcionPruebas(7)).toBe("Bueno: Se han realizado pruebas adecuadas, pero pueden ser mejoradas para una cobertura más completa.");
   });
-  it("Deberia mostrar un puntaje de 16 para un commit realizado a mas de 2 y menos de 3 dias del anterior (caso extremo)", () => {
-    const aux = new Metrica();
-    const primeraFecha = new Date("2024-01-01T10:00:00");
-    const segundaFecha = new Date("2024-01-04T09:59:59");
-    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
-    const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(16);
+
+  it("Deberia devolver una descripcion para 4 pruebas", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.obtenerDescripcionPruebas(4)).toBe("Insuficiente: La cantidad de pruebas realizadas es baja, lo que puede afectar la calidad del código.");
   });
-  it("Deberia mostrar un puntaje de 12 para un commit realizado a mas de 3 y menos de 4 dias del anterior", () => {
-    const aux = new Metrica();
-    const primeraFecha = new Date("2024-01-01T10:00:00");
-    const segundaFecha = new Date("2024-01-04T20:00:00");
-    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
-    const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(12);
+
+  it("Deberia devolver una descripcion de las lineas, para puntaje de lineas 7 ", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.obtenerDescripcionLineas(4)).toBe("Demasiado grande: El código es demasiado extenso, lo que puede dificultar su mantenimiento y comprensión.");
   });
-  it("Deberia mostrar un puntaje de 12 para un commit realizado a mas de 3 y menos de 4 dias del anterior (caso extremo)", () => {
-    const aux = new Metrica();
-    const primeraFecha = new Date("2024-01-01T10:00:00");
-    const segundaFecha = new Date("2024-01-05T09:59:59");
-    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
-    const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(12);
+
+  it("Deberia devolver una descripcion de cobertura, para puntaje de cobertura 4 ", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.obtenerDescripcionCobertura(4)).toBe("Deficiente: La cobertura de pruebas es baja, lo que deja áreas críticas sin suficiente protección.");
   });
-  it("Deberia mostrar un puntaje de 8 para un commit realizado a mas de 4 dias del anterior", () => {
-    const aux = new Metrica();
-    const primeraFecha = new Date("2024-01-01T10:00:00");
-    const segundaFecha = new Date("2024-01-07T10:00:00");
-    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
-    const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(8);
+
+  it("Deberia devolver una descripcion de puntaje total, para puntaje total de 20 ", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.obtenerDescripcionTotal(20)).toBe("Buen trabajo, el proyecto tiene un nivel aceptable de calidad.");
   });
-  it("Deberia mostrar un puntaje de 8 para un commit realizado a mas de 4 dias del anterior (caso extremo)", () => {
-    const aux = new Metrica();
-    const primeraFecha = new Date("2024-01-01T10:00:00");
-    const segundaFecha = new Date("2024-01-05T10:00:01");
-    const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
-    const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
-    expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(8);
+  it("Deberia devolver una descripcion de puntaje total, para puntaje total de 15 ", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.obtenerDescripcionTotal(15)).toBe("El proyecto necesita mejoras para alcanzar un nivel adecuado de calidad.");
   });
+
+  it("Deberia devolver una descripcion de puntaje total, para puntaje total de 5 ", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.obtenerDescripcionTotal(5)).toBe("Se requieren mejoras significativas, el proyecto tiene un bajo nivel de calidad.");
+  });
+
+  it("si en todos los commits del proyecto se incluyen pruebas, el puntaje sera de 20 puntos", () => {
+    const metricas = [
+      { pruebasAñadidas: 1 },
+      { pruebasAñadidas: 1 },
+      { pruebasAñadidas: 1 }
+    ];
+    const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
+    expect(puntaje).toBe(20);
+  });
+  it("si en el 80 a 99% de los commits del proyecto se incluyen pruebas, el puntaje sera de 16 puntos", () => {
+    const metricas = [
+      { pruebasAñadidas: 1 },
+      { pruebasAñadidas: 1 },
+      { pruebasAñadidas: 1 },
+      { pruebasAñadidas: 0 },
+      { pruebasAñadidas: 1 }
+    ];
+    const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
+    expect(puntaje).toBe(16);
+  });
+  it("si en el 60 a 79% de los commits del proyecto se incluyen pruebas, el puntaje sera de 12 puntos", () => {
+    const metricas = [
+      { pruebasAñadidas: 1 },
+      { pruebasAñadidas: 1 },
+      { pruebasAñadidas: 0 },
+      { pruebasAñadidas: 1 }
+    ];
+    const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
+    expect(puntaje).toBe(12);
+  });
+  it("si en el 0 a 60% de los commits del proyecto se incluyen pruebas, el puntaje sera de 8 puntos", () => {
+    const metricas = [
+      { pruebasAñadidas: 1 },
+      { pruebasAñadidas: 0 },
+      { pruebasAñadidas: 0 },
+      { pruebasAñadidas: 1 }
+    ];
+    const puntaje = metrica.calcularPromedioPuntajeDePrueba(metricas);
+    expect(puntaje).toBe(8);
+  });
+
+  //5ta HU Ale
+  it("Deberia devolver un puntaje de 8 para complejidad Deficiente", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajeComplejidad("Deficiente")).toBe(8);
+  });
+
+  it("Deberia devolver un puntaje de 12 para complejidad Regular", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajeComplejidad("Regular")).toBe(12);
+  });
+
+  it("Deberia devolver un puntaje de 16 para complejidad Bueno", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajeComplejidad("Bueno")).toBe(16);
+  });
+
+  it("Deberia devolver un puntaje de 20 para complejidad Excelente", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajeComplejidad("Excelente")).toBe(20);
+  });
+
+  it("Debería ser insensible a mayúsculas y minúsculas", () => {
+    expect(metrica.calcularPuntajeComplejidad("Deficiente")).toBe(8);
+    expect(metrica.calcularPuntajeComplejidad("Regular")).toBe(12);
+    expect(metrica.calcularPuntajeComplejidad("Bueno")).toBe(16);
+    expect(metrica.calcularPuntajeComplejidad("Excelente")).toBe(20);
+  });
+
+  it("Deberia devolver un puntaje de 8 para complejidad Deficiente ignorando mayusculas", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajeComplejidad("DeFicIEnTe")).toBe(8);
+  });
+
+  it("Deberia devolver un puntaje de 12 para complejidad Regular ignorando mayusculas", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajeComplejidad("ReguLAR")).toBe(12);
+  });
+
+  it("Deberia devolver un puntaje de 16 para complejidad Bueno, ignorando mayusculas", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajeComplejidad("BuENo")).toBe(16);
+  });
+
+  it("Deberia devolver un puntaje de 20 para complejidad Excelente, ignorando mayusculas", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajeComplejidad("EXceLENte")).toBe(20);
+  });
+
+  it("Deberia devolver un puntaje de 20 para complejidad Excelente, ignorando mayusculas", () => {
+    metrica = new Metrica(10, 10, 100);
+    expect(metrica.calcularPuntajeComplejidad("EXceLENte")).toBe(20);
+  });
+
+  it("debería devolver 8 si no hay metricas", () => {
+    const metricas = [];
+    const promedio = metrica.calcularPromedioPuntajeComplejidad(metricas);
+    expect(promedio).toBe(8);
+  });
+  it("debería devolver el puntaje de complejidad promedio si hay métricas válidas", () => {
+    const metricas = [
+      { complejidad: "Deficiente" },
+      { complejidad: "Regular" },
+      { complejidad: "Bueno" },
+      { complejidad: "Excelente" }
+    ];
+    const promedio = metrica.calcularPromedioPuntajeComplejidad(metricas);
+    expect(promedio).toBe(14);
+  });
+  it("debería devolver el puntaje de complejidad promedio si hay métricas válidas", () => {
+    const metricas = [
+      { complejidad: "Deficiente" },
+      { complejidad: "Deficiente" },
+      { complejidad: "Deficiente" },
+      { complejidad: "Deficiente" }
+    ];
+    const promedio = metrica.calcularPromedioPuntajeComplejidad(metricas);
+    expect(promedio).toBe(8);
+  });
+
+
+  describe("calcular puntaje por frecuencia", () => {
+    it("Deberia mostrar el máximo puntaje para el primer commit (todavia no se puede calcular la frecuencia de los commits)", () => {
+      const aux = new Metrica();
+      const primeraFecha = new Date("2024-01-01T10:00:00");
+      const segundaFecha = null;
+      const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+      const segundaMetrica = aux.crearMetrica(1, 10, 90, null, "Excelente");
+      expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(20);
+    });
+    it("Deberia mostrar el máximo puntaje para un commit realizado a menos de 2 dias del anterior", () => {
+      const aux = new Metrica();
+      const primeraFecha = new Date("2024-01-01T10:00:00");
+      const segundaFecha = new Date("2024-01-02T10:00:00");
+      const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+      const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
+      expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(20);
+    });
+    it("Deberia mostrar el máximo puntaje para un commit realizado a menos de 2 dias del anterior (caso limite)", () => {
+      const aux = new Metrica();
+      const primeraFecha = new Date("2024-01-01T10:00:00");
+      const segundaFecha = new Date("2024-01-03T09:59:59");
+      const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+      const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
+      expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(20);
+    });
+    it("Deberia mostrar un puntaje de 16 para un commit realizado a mas de 2 y menos de 3 dias del anterior", () => {
+      const aux = new Metrica();
+      const primeraFecha = new Date("2024-01-01T10:00:00");
+      const segundaFecha = new Date("2024-01-03T20:00:00");
+      const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+      const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
+      expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(16);
+    });
+    it("Deberia mostrar un puntaje de 16 para un commit realizado a mas de 2 y menos de 3 dias del anterior (caso extremo)", () => {
+      const aux = new Metrica();
+      const primeraFecha = new Date("2024-01-01T10:00:00");
+      const segundaFecha = new Date("2024-01-04T09:59:59");
+      const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+      const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
+      expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(16);
+    });
+    it("Deberia mostrar un puntaje de 12 para un commit realizado a mas de 3 y menos de 4 dias del anterior", () => {
+      const aux = new Metrica();
+      const primeraFecha = new Date("2024-01-01T10:00:00");
+      const segundaFecha = new Date("2024-01-04T20:00:00");
+      const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+      const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
+      expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(12);
+    });
+    it("Deberia mostrar un puntaje de 12 para un commit realizado a mas de 3 y menos de 4 dias del anterior (caso extremo)", () => {
+      const aux = new Metrica();
+      const primeraFecha = new Date("2024-01-01T10:00:00");
+      const segundaFecha = new Date("2024-01-05T09:59:59");
+      const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+      const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
+      expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(12);
+    });
+    it("Deberia mostrar un puntaje de 8 para un commit realizado a mas de 4 dias del anterior", () => {
+      const aux = new Metrica();
+      const primeraFecha = new Date("2024-01-01T10:00:00");
+      const segundaFecha = new Date("2024-01-07T10:00:00");
+      const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+      const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
+      expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(8);
+    });
+    it("Deberia mostrar un puntaje de 8 para un commit realizado a mas de 4 dias del anterior (caso extremo)", () => {
+      const aux = new Metrica();
+      const primeraFecha = new Date("2024-01-01T10:00:00");
+      const segundaFecha = new Date("2024-01-05T10:00:01");
+      const primeraMetrica = aux.crearMetrica(1, 10, 90, primeraFecha, "Excelente");
+      const segundaMetrica = aux.crearMetrica(1, 10, 90, segundaFecha, "Excelente");
+      expect(segundaMetrica.calcularPuntajeFrecuencia(primeraMetrica)).toBe(8);
+    });
+  });
+
+
+  describe("Mensaje adecuado para frecuencia", () => {
+    it("Deberia devolver el mensaje adecuado para un frecuencia excelente", () => {
+      const aux = new Metrica();
+      const metrica = aux.crearMetrica(1, 10, 90, "2024-01-01T10:00:00", "Excelente");
+      expect(metrica.obtenerDescripcionFrecuencia(20)).toBe("Excelente: los commits se han realizado de forma muy incremental en el tiempo");
+    });
+    it("Deberia devolver el mensaje adecuado para un frecuencia buena", () => {
+      const aux = new Metrica();
+      const metrica = aux.crearMetrica(1, 10, 90, "2024-01-01T10:00:00", "Excelente");
+      expect(metrica.obtenerDescripcionFrecuencia(16)).toBe("Bueno: los commits se han realizado de forma suficientemente incremental en el tiempo");
+    });
+    it("Deberia devolver el mensaje adecuado para un frecuencia regular", () => {
+      const aux = new Metrica();
+      const metrica = aux.crearMetrica(1, 10, 90, "2024-01-01T10:00:00", "Excelente");
+      expect(metrica.obtenerDescripcionFrecuencia(12)).toBe("Regular: los commits se han realizado de forma incremental, pero se puede mejorar");
+    });
+    it("Deberia devolver el mensaje adecuado para un frecuencia deficiente", () => {
+      const aux = new Metrica();
+      const metrica = aux.crearMetrica(1, 10, 90, "2024-01-01T10:00:00", "Excelente");
+      expect(metrica.obtenerDescripcionFrecuencia(8)).toBe("Deficiente: los commits no se han realizado de forma incremental");
+    });
+  });
+
+  describe("agregarMetricaAProyecto", () => {
+    it("Debería agregar la métrica al proyecto y retornar la última métrica agregada (no refac)", () => {
+      const proyecto = new Proyecto();
+      const metrica = new Metrica(10, 100, 80);
+      const ultimaMetricaAgregada = metrica.agregarMetricaAProyecto(metrica, proyecto);
+      expect(proyecto.metricas.length).toBe(1);
+      expect(ultimaMetricaAgregada).toBe(metrica);
+    });
+    it("Debería retornar un mensaje si se intenta agregar una métrica a un proyecto no existente (no refac)", () => {
+      const proyecto = null;
+      const metrica = new Metrica(10, 100, 80);
+      const mensaje = metrica.agregarMetricaAProyecto(metrica, proyecto);
+      expect(mensaje).toBe("No se puede agregar una métrica a un proyecto no existente");
+    });
+  });
+
+  describe("eliminarMetricaDeProyecto", () => {
+    it("Debería eliminar la métrica del proyecto y retornar un mensaje de éxito (no refac)", () => {
+      const proyecto = new Proyecto();
+      const metrica = new Metrica(10, 100, 80);
+      proyecto.metricas.push(metrica);
+      const mensaje = metrica.eliminarMetricaDeProyecto(metrica, proyecto);
+      expect(proyecto.metricas.length).toBe(0);
+      expect(mensaje).toBe("Se eliminó la métrica del proyecto con éxito");
+    });
+    it("Debería retornar un mensaje si se intenta eliminar una métrica que no existe en el proyecto (no refac)", () => {
+      const proyecto = new Proyecto();
+      const metrica = new Metrica(10, 100, 80);
+      const mensaje = metrica.eliminarMetricaDeProyecto(metrica, proyecto);
+      expect(mensaje).toBe("No se puede eliminar una métrica que no existe en el proyecto");
+    });
+  });
+
+  describe("calcularPuntajeLineas", () => {
+    it("Debería devolver 20 cuando las lineas de codigo son 20 o menos", () => {
+      const metrica = new Metrica();
+      expect(metrica.calcularPuntajeLineas(0)).toBe(20);
+      expect(metrica.calcularPuntajeLineas(10)).toBe(20);
+      expect(metrica.calcularPuntajeLineas(20)).toBe(20);
+    });
+    it("Debería devolver 16 cuando las lineas de codigo son menos de 40 y mas de 20", () => {
+      const metrica = new Metrica();
+      expect(metrica.calcularPuntajeLineas(40)).toBe(16);
+      expect(metrica.calcularPuntajeLineas(30)).toBe(16);
+      expect(metrica.calcularPuntajeLineas(21)).toBe(16);
+    });
+    it("Debería devolver 12 cuando las lineas de codigo son menos de 60 y mas de 40", () => {
+      const metrica = new Metrica();
+      expect(metrica.calcularPuntajeLineas(41)).toBe(12);
+      expect(metrica.calcularPuntajeLineas(50)).toBe(12);
+      expect(metrica.calcularPuntajeLineas(60)).toBe(12);
+    });
+    it("Debería devolver 8 cuando las lineas de codigo son mas de 60", () => {
+      const metrica = new Metrica();
+      expect(metrica.calcularPuntajeLineas(61)).toBe(8);
+      expect(metrica.calcularPuntajeLineas(100)).toBe(8);
+    });
+  })
+
+
+
 });
 
 
-describe("Mensaje adecuado para frecuencia", () => {
-  it("Deberia devolver el mensaje adecuado para un frecuencia excelente", () => {
-    const aux = new Metrica();
-    const metrica = aux.crearMetrica(1, 10, 90, "2024-01-01T10:00:00", "Excelente");
-    expect(metrica.obtenerDescripcionFrecuencia(20)).toBe("Excelente: los commits se han realizado de forma muy incremental en el tiempo");
-  });
-  it("Deberia devolver el mensaje adecuado para un frecuencia buena", () => {
-    const aux = new Metrica();
-    const metrica = aux.crearMetrica(1, 10, 90, "2024-01-01T10:00:00", "Excelente");
-    expect(metrica.obtenerDescripcionFrecuencia(16)).toBe("Bueno: los commits se han realizado de forma suficientemente incremental en el tiempo");
-  });
-  it("Deberia devolver el mensaje adecuado para un frecuencia regular", () => {
-    const aux = new Metrica();
-    const metrica = aux.crearMetrica(1, 10, 90, "2024-01-01T10:00:00", "Excelente");
-    expect(metrica.obtenerDescripcionFrecuencia(12)).toBe("Regular: los commits se han realizado de forma incremental, pero se puede mejorar");
-  });
-  it("Deberia devolver el mensaje adecuado para un frecuencia deficiente", () => {
-    const aux = new Metrica();
-    const metrica = aux.crearMetrica(1, 10, 90, "2024-01-01T10:00:00", "Excelente");
-    expect(metrica.obtenerDescripcionFrecuencia(8)).toBe("Deficiente: los commits no se han realizado de forma incremental");
-  });
-});
+//pruebas del archivo
 
-describe("agregarMetricaAProyecto", () => {
-  it("Debería agregar la métrica al proyecto y retornar la última métrica agregada (no refac)", () => {
-    const proyecto = new Proyecto();
-    const metrica = new Metrica(10, 100, 80);
-    const ultimaMetricaAgregada = metrica.agregarMetricaAProyecto(metrica, proyecto);
+describe("procesarArchivoDeMetricas", () => {
+  it("Debería devolver un array de métricas correctamente procesado con una métrica", () => {
+    const metrica = new Metrica();
+    const contenido = "10, 20, 80, 2024-06-01T08:00:00, Bueno";
+    const proyecto = { titulo: "Proyecto de prueba", metricas: [] };
+
+    const metricasProcesadas = metrica.procesarArchivoDeMetricas(contenido, proyecto);
+
+    expect(metricasProcesadas.length).toBe(1);
+    expect(metricasProcesadas[0].pruebasAñadidas).toBe(10);
+    expect(metricasProcesadas[0].lineasDeCodigo).toBe(20);
+    expect(metricasProcesadas[0].cobertura).toBe(80);
+    expect(metricasProcesadas[0].fecha).toEqual(new Date("2024-06-01T08:00:00"));
+    expect(metricasProcesadas[0].complejidad).toBe("Bueno");
+    // Verificar que la métrica se agregó al proyecto
     expect(proyecto.metricas.length).toBe(1);
-    expect(ultimaMetricaAgregada).toBe(metrica);
+    expect(proyecto.metricas[0]).toBe(metricasProcesadas[0]);
   });
-  it("Debería retornar un mensaje si se intenta agregar una métrica a un proyecto no existente (no refac)", () => {
-    const proyecto = null;
-    const metrica = new Metrica(10, 100, 80);
-    const mensaje = metrica.agregarMetricaAProyecto(metrica, proyecto);
-    expect(mensaje).toBe("No se puede agregar una métrica a un proyecto no existente");
-  });
+
 });
-
-describe("eliminarMetricaDeProyecto", () => {
-  it("Debería eliminar la métrica del proyecto y retornar un mensaje de éxito (no refac)", () => {
-    const proyecto = new Proyecto();
-    const metrica = new Metrica(10, 100, 80);
-    proyecto.metricas.push(metrica);
-    const mensaje = metrica.eliminarMetricaDeProyecto(metrica, proyecto);
-    expect(proyecto.metricas.length).toBe(0);
-    expect(mensaje).toBe("Se eliminó la métrica del proyecto con éxito");
-  });
-  it("Debería retornar un mensaje si se intenta eliminar una métrica que no existe en el proyecto (no refac)", () => {
-    const proyecto = new Proyecto();
-    const metrica = new Metrica(10, 100, 80);
-    const mensaje = metrica.eliminarMetricaDeProyecto(metrica, proyecto);
-    expect(mensaje).toBe("No se puede eliminar una métrica que no existe en el proyecto");
-  });
-});
-
-describe("calcularPuntajeLineas", () => {
-  it("Debería devolver 20 cuando las lineas de codigo son 20 o menos", () => {
-    const metrica = new Metrica();
-    expect(metrica.calcularPuntajeLineas(0)).toBe(20);
-    expect(metrica.calcularPuntajeLineas(10)).toBe(20);
-    expect(metrica.calcularPuntajeLineas(20)).toBe(20);
-  });
-  it("Debería devolver 16 cuando las lineas de codigo son menos de 40 y mas de 20", () => {
-    const metrica = new Metrica();
-    expect(metrica.calcularPuntajeLineas(40)).toBe(16);
-    expect(metrica.calcularPuntajeLineas(30)).toBe(16);
-    expect(metrica.calcularPuntajeLineas(21)).toBe(16);
-  });
-  it("Debería devolver 12 cuando las lineas de codigo son menos de 60 y mas de 40", () => {
-    const metrica = new Metrica();
-    expect(metrica.calcularPuntajeLineas(41)).toBe(12);
-    expect(metrica.calcularPuntajeLineas(50)).toBe(12);
-    expect(metrica.calcularPuntajeLineas(60)).toBe(12);
-  });
-  it("Debería devolver 8 cuando las lineas de codigo son mas de 60", () => {
-    const metrica = new Metrica();
-    expect(metrica.calcularPuntajeLineas(61)).toBe(8);
-    expect(metrica.calcularPuntajeLineas(100)).toBe(8);
-  });
-})
-
-
-    
-});
-

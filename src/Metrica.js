@@ -6,7 +6,7 @@ export default class Metrica {
         this.fecha = fecha;
         this.complejidad = complejidad;
     }
-    crearMetrica(pruebasAñadidas, lineasDeCodigo, cobertura,complejidad) {
+    crearMetrica(pruebasAñadidas, lineasDeCodigo, cobertura, complejidad) {
         const cero = 0;
         const valorindefinido = undefined;
         const valornulo = null;
@@ -30,7 +30,7 @@ export default class Metrica {
         const puntajePruebas = this.calcularPuntajePruebas(pruebasAñadidas);
         const puntajeLineas = this.calcularPuntajeLineas(lineasDeCodigo);
         const puntajeCobertura = this.calcularPuntajeCobertura(cobertura);
-        const puntajeComplejidad=this.calcularPuntajeComplejidad(complejidad);
+        const puntajeComplejidad = this.calcularPuntajeComplejidad(complejidad);
         const puntajeTotal = puntajePruebas + puntajeLineas + puntajeCobertura;
 
         const descripcionPruebas = this.obtenerDescripcionPruebas(puntajePruebas);
@@ -40,7 +40,7 @@ export default class Metrica {
 
         const descripcionTotal = this.obtenerDescripcionTotal(puntajeTotal);
 
-        return new Metrica(pruebasAñadidas, lineasDeCodigo, cobertura,complejidad, puntajeTotal, descripcionPruebas, descripcionLineas, descripcionCobertura, descripcionTotal,puntajeComplejidad);
+        return new Metrica(pruebasAñadidas, lineasDeCodigo, cobertura, complejidad, puntajeTotal, descripcionPruebas, descripcionLineas, descripcionCobertura, descripcionTotal, puntajeComplejidad);
 
     }
 
@@ -63,20 +63,16 @@ export default class Metrica {
         metricas.forEach(metrica => {
             sumaMetricasConPrueba += isNaN(metrica.pruebasAñadidas) || metrica.pruebasAñadidas < cero ? cero : metrica.pruebasAñadidas;
         });
-        let porcentajeMetricaConPrueba= sumaMetricasConPrueba / metricas.length;
-        if(porcentajeMetricaConPrueba == 1)
-        {
+        let porcentajeMetricaConPrueba = sumaMetricasConPrueba / metricas.length;
+        if (porcentajeMetricaConPrueba == 1) {
             return 20;
-        }else if(porcentajeMetricaConPrueba < 1 && porcentajeMetricaConPrueba >= 0.8)
-        {
+        } else if (porcentajeMetricaConPrueba < 1 && porcentajeMetricaConPrueba >= 0.8) {
             return 16;
-        }else if(porcentajeMetricaConPrueba < 0.8 && porcentajeMetricaConPrueba >= 0.6)
-        {
+        } else if (porcentajeMetricaConPrueba < 0.8 && porcentajeMetricaConPrueba >= 0.6) {
             return 12;
-        }else if(porcentajeMetricaConPrueba < 0.6 && porcentajeMetricaConPrueba >= 0)
-        {
+        } else if (porcentajeMetricaConPrueba < 0.6 && porcentajeMetricaConPrueba >= 0) {
             return 8;
-        }else{
+        } else {
             return 0;
         }
     }
@@ -141,10 +137,10 @@ export default class Metrica {
 
     calcularPuntajeComplejidad(complejidad) {
         let puntajeComplejidad = 8;
-    
+
         if (typeof complejidad === 'string') {
             const complejidadLower = complejidad.toLowerCase();
-    
+
             if (complejidadLower === "deficiente") {
                 puntajeComplejidad = 8;
             } else if (complejidadLower === "regular") {
@@ -155,9 +151,10 @@ export default class Metrica {
                 puntajeComplejidad = 20;
             }
         }
-    
+
         return puntajeComplejidad;
     }
+
     calcularPuntajeFrecuencia(metricaPrevia) {
         if (metricaPrevia === undefined || metricaPrevia === null) {
             return 20;
@@ -177,30 +174,28 @@ export default class Metrica {
         }
         return 8;
     }
+
+
+
     calcularPromedioPuntajeComplejidad(metricas) {
         let sumaPuntajes = 0;
         let cantidadMétricasValidas = 0;
-    
+
         metricas.forEach(metrica => {
             const puntaje = this.calcularPuntajeComplejidad(metrica.complejidad);
-    
+
             if (!isNaN(puntaje)) {
                 sumaPuntajes += puntaje;
                 cantidadMétricasValidas++;
             }
         });
-    
+
         if (cantidadMétricasValidas === 0) {
             return 8;
         }
-    
+
         return sumaPuntajes / cantidadMétricasValidas;
     }
-    
-    
-    
-    
-    
 
     obtenerDescripcionPruebas(puntajePruebas) {
         if (puntajePruebas >= 9) {
@@ -290,6 +285,20 @@ export default class Metrica {
         }
     }
 
+    procesarArchivoDeMetricas(contenido, proyecto) {
+        const [pruebas, lineas, cobertura, fechaHora, complejidad] = contenido.split(',').map(value => value.trim());
+        const metrica = new Metrica(
+            parseInt(pruebas),
+            parseInt(lineas),
+            parseFloat(cobertura),
+            new Date(fechaHora),
+            complejidad
+        );
+        this.agregarMetricaAProyecto(metrica, proyecto);
+        return [metrica];
+    }
+    
+
 
     mostrarMetricasProyecto(proyecto) {
         const metricasContainer = document.querySelector("#metricas-container");
@@ -301,7 +310,7 @@ export default class Metrica {
             const puntajePruebas = this.calcularPuntajePruebas(metrica.pruebasAñadidas);
             const puntajeLineas = this.calcularPuntajeLineas(metrica.lineasDeCodigo);
             const puntajeCobertura = this.calcularPuntajeCobertura(metrica.cobertura);
-            const puntajeComplejidad=this.calcularPuntajeComplejidad(metrica.complejidad);
+            const puntajeComplejidad = this.calcularPuntajeComplejidad(metrica.complejidad);
             const puntajeFrecuencia = this.calcularPuntajeFrecuencia(metricaAnterior);
             const puntajeTotal = puntajePruebas + puntajeLineas + puntajeCobertura;
 
