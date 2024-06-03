@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const botonesEliminarMetrica = document.querySelectorAll(".eliminar-metrica");
     botonesEliminarMetrica.forEach(boton => {
     boton.addEventListener("click", function() {
+
+        if (metrica.confirmarEliminarMetrica()) {
         const metricaIndex = parseInt(this.dataset.metricaIndex);
         const metricaEliminada = proyecto.metricas[metricaIndex];
         const eliminacionExitosa = metrica.eliminarMetricaDeProyecto(metricaEliminada, proyecto);
@@ -31,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             console.error("Error al eliminar la métrica del proyecto");
         }
+    }
     });
     });
 

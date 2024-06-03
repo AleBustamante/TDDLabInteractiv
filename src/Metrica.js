@@ -267,4 +267,8 @@ export default class Metrica {
 
         });
     }
+    confirmarEliminarMetrica() {
+        return confirm("¿Estás seguro de que deseas eliminar esta métrica?");
+    }
+    
 }
