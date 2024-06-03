@@ -386,5 +386,9 @@ export default class Metrica {
             metricasContainer.innerHTML += promedioHTML;
         }
     }
+    confirmarEliminarMetrica()
+    {
+        return confirm("Estas seguro de eliminar esta metrica?");
+    }
     
 }
