@@ -15,13 +15,15 @@ metricaForm.addEventListener("submit", (event) => {
     const pruebas = parseInt(metricaForm.querySelector("#pruebas").value);
     const lineas = parseInt(metricaForm.querySelector("#lineas").value);
     const cobertura = parseInt(metricaForm.querySelector("#cobertura").value);
-    const fecha = Date(metricaForm.querySelector("#fecha-hora").value);
+    //const fecha = Date(metricaForm.querySelector("#fecha-hora").value);
+    const fechaStr = metricaForm.querySelector("#fecha-hora").value;
+    const fecha = new Date(fechaStr);
     const complejidad = String(metricaForm.querySelector("#complejidad").value);
 
 
     const aux = new Metrica();
     //const metrica = aux.crearMetrica(pruebas, lineas, cobertura, fecha, complejidad);
-    const metrica = new Metrica(pruebas, lineas, cobertura, fecha, complejidad);
+    const metrica = new Metrica(pruebas, lineas, cobertura, fecha, complejidad, proyectoActual.metricas[proyectoActual.metricas.length - 1]);
     if (metrica !== null) {
         metrica.agregarMetricaAProyecto(metrica, proyectoActual);
         const index = proyectos.findIndex(proyecto => proyecto.titulo === proyectoActual.titulo);

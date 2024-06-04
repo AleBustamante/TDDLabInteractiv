@@ -1,10 +1,13 @@
 export default class Metrica {
-    constructor(pruebasAñadidas, lineasDeCodigo, cobertura, fecha, complejidad) {
+    constructor(pruebasAñadidas, lineasDeCodigo, cobertura, fecha, complejidad, metricaAnterior = null) {
         this.pruebasAñadidas = pruebasAñadidas;
         this.lineasDeCodigo = lineasDeCodigo;
         this.cobertura = cobertura;
         this.fecha = fecha;
         this.complejidad = complejidad;
+        this.frecuencia = null;
+        this.hayPruebas = pruebasAñadidas >= 1 ? true : false;
+        this.calcularPuntajeFrecuencia(metricaAnterior);
     }
     crearMetrica(pruebasAñadidas, lineasDeCodigo, cobertura, complejidad) {
         const cero = 0;
@@ -53,11 +56,21 @@ export default class Metrica {
     }
 
     calcularPromedioPuntajeDePruebas(metricas) {
-        let sumaPuntajes = 0;
+        let porcentajeConPrueba = 0;
+        let commitsConPrueba = 0;
         metricas.forEach(metrica => {
-            sumaPuntajes += isNaN(metrica.pruebasAñadidas) || metrica.pruebasAñadidas < 0 ? 0 : this.calcularPuntajePruebas(metrica.pruebasAñadidas);
+            commitsConPrueba += metrica.hayPruebas === true ? 1 : 0;
         });
-        return sumaPuntajes / metricas.length;
+        porcentajeConPrueba = commitsConPrueba * 100 / metricas.length;
+        if (porcentajeConPrueba === 100) {
+            return 20;
+        } else if (porcentajeConPrueba >= 80) {
+            return 16;
+        } else if (porcentajeConPrueba >= 60) {
+            return 12;
+        } else {
+            return 8;
+        }
     }
 
 
@@ -161,6 +174,7 @@ export default class Metrica {
 
     calcularPuntajeFrecuencia(metricaPrevia) {
         if (metricaPrevia === undefined || metricaPrevia === null) {
+            this.frecuencia = "Excelente";
             return 20;
         }
         const milisegundosEnDia = 86400000;
@@ -168,14 +182,18 @@ export default class Metrica {
         const fecha2 = new Date(this.fecha);
         const tiempoTranscurrido = fecha2 - fecha1;
         if (tiempoTranscurrido < milisegundosEnDia * 2) {
+            this.frecuencia = "Excelente";
             return 20;
         }
         if (tiempoTranscurrido < milisegundosEnDia * 3) {
+            this.frecuencia = "Bueno";
             return 16;
         }
         if (tiempoTranscurrido < milisegundosEnDia * 4) {
+            this.frecuencia = "Regular";
             return 12;
         }
+        this.frecuencia = "Deficiente";
         return 8;
     }
 
@@ -185,7 +203,20 @@ export default class Metrica {
             return cero;
         }  let sumaFrecuencias = cero;
         metricas.forEach(metrica => {
-            sumaFrecuencias += this.calcularPuntajeFrecuencia(metrica);
+            switch (metrica.frecuencia) {
+                case "Excelente":
+                    sumaFrecuencias += 20;
+                    break;
+                case "Bueno":
+                    sumaFrecuencias += 16;
+                    break;
+                case "Regular":
+                    sumaFrecuencias += 12;
+                    break;
+                case "Deficiente":
+                    sumaFrecuencias += 8;
+                    break;
+            }
         });
         return sumaFrecuencias / metricas.length;
     }
@@ -330,7 +361,6 @@ export default class Metrica {
     }
 
 
-
     generarMetricaHTML(metrica, index) {
         return `
             <div>
@@ -339,7 +369,7 @@ export default class Metrica {
                 <p>Líneas de Código Modificadas: ${metrica.lineasDeCodigo} líneas.</p>
                 <p>Cobertura de Pruebas: ${metrica.cobertura}%.</p>
                 <p>Complejidad de Código: ${metrica.complejidad}.</p>
-                <p>Frecuencia de Commits: ${metrica.fechaHora}.</p>
+                <p>Frecuencia de Commits: ${metrica.frecuencia}.</p>
                 <button class="eliminar-metrica" data-metrica-index="${index}">Eliminar Métrica</button>
                 <button class="editar-metrica" data-metrica-index="${index}">Editar Métrica</button>
     
@@ -386,8 +416,7 @@ export default class Metrica {
             metricasContainer.innerHTML += promedioHTML;
         }
     }
-    confirmarEliminarMetrica()
-    {
+    confirmarEliminarMetrica() {
         return confirm("Estas seguro de eliminar esta metrica?");
     }
     
