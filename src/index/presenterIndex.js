@@ -21,9 +21,11 @@ proyectos.forEach((proyecto) => {
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Eliminar";
   deleteButton.addEventListener("click", () => {
-    eliminarProyecto(proyecto,proyectos)
-    localStorage.setItem("proyectos", JSON.stringify(proyectos));
-    proyectoElement.remove();
+    if (confirm("¿Estás seguro que quieres eliminar el proyecto?")) {
+      eliminarProyecto(proyecto,proyectos)
+      localStorage.setItem("proyectos", JSON.stringify(proyectos));
+      proyectoElement.remove();
+    }
   });
   proyectoElement.appendChild(deleteButton);
   

@@ -417,7 +417,7 @@ export default class Metrica {
         }
     }
     confirmarEliminarMetrica() {
-        return confirm("Estas seguro de eliminar esta metrica?");
+        return confirm("¿Estás seguro de eliminar esta metrica?");
     }
     
 }

@@ -42,5 +42,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const botonRegresar = document.querySelector("#boton-regresar");
     botonRegresar.addEventListener("click", function () {
-        window.location.href = "index.html";
+        window.location.href = "Metricas.html";
     });
