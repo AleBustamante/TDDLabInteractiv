@@ -599,13 +599,15 @@ describe('calcularPromedioPuntajeDeFrecuencia', () => {
 
 
   it('debería calcular el puntaje promedio correctamente cuando hay varias métricas', () => {
-      const fechaActual = new Date();
-      const metrica1 = { fecha: new Date(fechaActual.getTime() - 86400000 * 1) }; // Hace 1 día
-      const metrica2 = { fecha: new Date(fechaActual.getTime() - 86400000 * 3) }; // Hace 3 días
-      const metrica3 = { fecha: new Date(fechaActual.getTime() - 86400000 * 5) }; // Hace 5 días
+      const metrica1 = new Metrica(null, null, null, null, null, null); // Hace 1 día
+      metrica1.frecuencia = "Excelente";
+      const metrica2 = new Metrica(null, null, null, null, null, null); // Hace más de 3 días
+      metrica2.frecuencia = "Regular";
+      const metrica3 = new Metrica(null, null, null, null, null, null); // Hace más de 4 días
+      metrica3.frecuencia = "Deficiente";
       const metricas = [metrica1, metrica2, metrica3];
 
-      const objMetricas = new Metrica(null, null, null, fechaActual, null);
+      const objMetricas = new Metrica(null, null, null, null, null);
       const resultado = objMetricas.calcularPromedioPuntajeDeFrecuencia(metricas);
 
       // Puntajes esperados: 20 (hace 1 día), 12 (hace 3 días), 8 (hace 5 días)
@@ -631,11 +633,11 @@ describe("calcularPuntajeTotal", () => {
   it("Debería devolver la suma de los promedios de todas las métricas", () => {
       const resultado = metrica.calcularPuntajeTotal(metricasMock);
       const esperado = (
-          (metrica.calcularPuntajePruebas(10) + metrica.calcularPuntajePruebas(20)) / 2 +
-          (metrica.calcularPuntajeLineas(20) + metrica.calcularPuntajeLineas(40)) / 2 +
-          (metrica.calcularPuntajeCobertura(80) + metrica.calcularPuntajeCobertura(90)) / 2 +
-          (metrica.calcularPuntajeComplejidad("Bueno") + metrica.calcularPuntajeComplejidad("Excelente")) / 2 +
-          (metrica.calcularPuntajeFrecuencia(metricasMock[0]) + metrica.calcularPuntajeFrecuencia(metricasMock[1])) / 2
+          (metrica.calcularPuntajePruebas(10) + metrica.calcularPuntajePruebas(20)) / 2 + //20
+          (metrica.calcularPuntajeLineas(20) + metrica.calcularPuntajeLineas(40)) / 2 + //18
+          (metrica.calcularPuntajeCobertura(80) + metrica.calcularPuntajeCobertura(90)) / 2 + //18
+          (metrica.calcularPuntajeComplejidad("Bueno") + metrica.calcularPuntajeComplejidad("Excelente")) / 2 + //18
+          metrica.calcularPromedioPuntajeDeFrecuencia(metricasMock) //20
       );
       expect(resultado).toBeCloseTo(esperado, 5);
   });
@@ -648,11 +650,11 @@ describe("calcularPuntajeTotal", () => {
       ];
       const resultado = metrica.calcularPuntajeTotal(extremeMetricas);
       const esperado = (
-          (metrica.calcularPuntajePruebas(0) + metrica.calcularPuntajePruebas(100)) / 2 +
-          (metrica.calcularPuntajeLineas(0) + metrica.calcularPuntajeLineas(1000)) / 2 +
-          (metrica.calcularPuntajeCobertura(0) + metrica.calcularPuntajeCobertura(100)) / 2 +
-          (metrica.calcularPuntajeComplejidad("Deficiente") + metrica.calcularPuntajeComplejidad("Excelente")) / 2 +
-          (metrica.calcularPuntajeFrecuencia(extremeMetricas[0]) + metrica.calcularPuntajeFrecuencia(extremeMetricas[1])) / 2
+          metrica.calcularPromedioPuntajeDePruebas(extremeMetricas) + //8
+          (metrica.calcularPuntajeLineas(0) + metrica.calcularPuntajeLineas(1000)) / 2 + //14
+          (metrica.calcularPuntajeCobertura(0) + metrica.calcularPuntajeCobertura(100)) / 2 + //14
+          (metrica.calcularPuntajeComplejidad("Deficiente") + metrica.calcularPuntajeComplejidad("Excelente")) / 2 + //14
+          metrica.calcularPromedioPuntajeDeFrecuencia(extremeMetricas) //20
       );
       expect(resultado).toBeCloseTo(esperado, 5);
   });
